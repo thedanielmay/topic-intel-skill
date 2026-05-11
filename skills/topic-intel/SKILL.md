@@ -360,6 +360,22 @@ Each module defines the phase set, source priorities, KIT defaults, and output f
 | P7 | Practical implications — what this means for a specific actor or context (derive from KITs) | All |
 | P8 | Synthesis — policy brief, compliance landscape, KIT answers | All |
 
+**POL Verbatim Provision Rule (enforced at P8 synthesis):**
+
+Statutory provisions, thresholds, obligations, penalties, and deadlines are verbatim content. Paraphrasing a legislative provision without quoting it introduces error — the most common form being precision drift (the real threshold is $1 million; the synthesis says $1.5 million).
+
+**Rules for P8 synthesis prose:**
+- Every operative provision, threshold figure, penalty, or compliance deadline must be quoted verbatim with its section reference (e.g., `s. 47(2)(b)`) from the primary legislative instrument accessed in Phase P1
+- Summary and contextual prose around the provision is permitted — but the operative element must appear in direct quotes
+- When citing from subordinate legislation, ministerial guidance, or agency guidance (lower in the source authority hierarchy), the quote must be accompanied by its authority level: `[Ministerial Guideline — not primary legislation]`
+- Mark any provision described from memory or secondary sources (not directly accessed) as `[PROVISION UNVERIFIED — secondary source only]` and access the primary instrument before finalising
+
+**Common POL paraphrase hallucinations to watch for:**
+- Threshold figures rounded or shifted (e.g., "$100,000" → "$100K" → "$1M" across successive paraphrases)
+- Obligation scope narrowed or widened ("entities above threshold" → "all entities")
+- Deadline or commencement date shifted
+- Penalty stated as maximum when the source states a range
+
 **Primary sources:** legislation.vic.gov.au or legislation.gov.au (primary instrument), AustLII (all jurisdictions, regulations, tribunal decisions), Parliament Hansard (debates, committee hearings), Victorian Auditor-General / ANAO (implementation audits), consultation submissions, Social Traders / peak body commentary for sector-specific policy, Productivity Commission reports.
 
 **Output format:** Policy brief — scope and purpose, key obligations, implementation status, compliance landscape, advocacy positions, gaps and ambiguities, practical implications.
@@ -391,6 +407,20 @@ Each module defines the phase set, source priorities, KIT defaults, and output f
 | S6 | Contested claims register — identify areas of genuine expert disagreement; apply ACH | 2/3 |
 | S7 | Practical application mapping — what emerging from the literature has real-world application | 2/3 |
 | S8 | Synthesis — evidence landscape map, KIT answers, research gaps | All |
+
+**SCI Citation Manifest (required before S8 synthesis):**
+
+Before writing the evidence landscape map or any synthesis prose in S8, produce a citation manifest. Every academic work to be cited in synthesis must appear in this manifest:
+
+```markdown
+| Citation | DOI / URL / Semantic Scholar ID | Source of record | Verified? |
+|---|---|---|---|
+| Author et al. (Year). Title. Journal. | [identifier] | [API response / research log entry] | Y / N |
+```
+
+**Rule:** Any citation that cannot be given a DOI, URL, or Semantic Scholar paper ID from the research log (from Phases S1–S7) must not appear in synthesis as a citation. It may appear as a gap: "A systematic review of [topic] was not located — this is a gap in the evidence base." A citation described only as "Author et al. (year)" with no traceable identifier is not a citation — it is a fabrication risk.
+
+Save the manifest to `05-analysis/sci-citation-manifest.md` before beginning S8 prose.
 
 **Primary sources (access via API where possible):**
 - Semantic Scholar API: `https://api.semanticscholar.org/graph/v1/paper/search?query={terms}&fields=title,authors,year,citationCount,abstract`
@@ -557,6 +587,16 @@ Some investigations span multiple topic types. Use this protocol when the Topic 
 2. **Identify secondary modules** — list only the modules needed to answer KITs that fall outside the primary type.
 3. **Capture in the scoping document** — list all modules and their KIT assignments in the Topic Scoping Document before research begins. Format: `Primary module: TRD (KITs 1, 2, 4) | Secondary: MKT (KIT 3) | Secondary: POL (KIT 5)`
 4. **Sequence:** Primary module phases run first. Secondary modules run after the primary investigation phase is complete, targeting only the phases relevant to their assigned KITs.
+4b. **Module Contamination Firewall:** Each module writes its complete synthesis to a module-specific synthesis file before Phase 11 begins. When Phase 11 integrates findings across modules, it must cite module synthesis files by file reference — not by memory of the module's findings.
+
+Format for cross-module citation in Phase 11 synthesis prose:
+`[Source: module-MKT-synthesis.md §Market Sizing — "exact quote or ≤15 word paraphrase"]`
+
+**Rule:** No finding from a secondary module may enter primary module synthesis prose without a `[Source: module-X-synthesis.md]` tag. Untagged cross-module claims are treated as unsourced and must be resolved before the Fabrication Detection Pass (INTELLIGENCE-STANDARDS.md Section 8 Step 6b).
+
+Module synthesis files are saved to:
+- Primary module: `05-analysis/synthesis-[MODULE-CODE]-primary.md`
+- Secondary modules: `05-analysis/synthesis-[MODULE-CODE]-secondary.md`
 5. **Output integration:** Secondary module findings feed into the primary module's synthesis phase. Produce one unified Executive Summary; produce module-specific deliverables (e.g., Policy Brief + Trend Brief) as separate files in `00-summary/`.
 6. **Limit:** Maximum 3 modules per investigation. More than 3 indicates the scope needs decomposition into separate investigations with their own scoping documents, folders, and KIT registers.
 
@@ -725,12 +765,16 @@ _topic-{slug}/
 │   ├── contested-claims.md                       ← if applicable
 │   ├── information-gaps.md
 │   ├── monitoring-plan.md
-│   └── assumptions-limitations.md
+│   ├── assumptions-limitations.md
+│   └── synthesis-source-register.md          ← claim-to-source linkage map (required before synthesis prose)
 ├── 01-primary-sources/                           ← Official documents, legislation, data
 ├── 02-media-coverage/                            ← News, interviews, podcasts, video
 ├── 03-stakeholders-actors/                       ← People, organisations, networks
 ├── 04-data-statistics/                           ← Quantitative data, datasets
 ├── 05-analysis/                                  ← Frameworks, models, synthesis drafts
+│   ├── sci-citation-manifest.md              ← SCI module only: citation identifier verification
+│   ├── synthesis-[MODULE-CODE]-primary.md    ← module synthesis before Phase 11 integration
+│   └── synthesis-[MODULE-CODE]-secondary.md  ← secondary module synthesis files (if chaining)
 ├── inaccessible-sources.md                       ← Sources that failed all four layers
 └── research-log.md                               ← Running log of all research activity
 ```
