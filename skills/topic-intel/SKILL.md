@@ -19,6 +19,47 @@ A structured intelligence-gathering skill that performs deep, multi-source resea
 
 **Announce at start:** "Using the topic-intel skill to conduct a structured intelligence investigation."
 
+## Dependency Check
+
+Before doing anything else, check whether the following skills appear in the available skill list for this session:
+
+- `fact-check-workflow`
+- `literature-review`
+- `document-skills:pdf`
+- `data-visualization`
+- `expert-panel`
+
+If ANY are missing, say:
+
+> "topic-intel works best with its full skill set. The following skills are missing from this session:
+> [list the missing ones]
+>
+> Install them using either method below, then restart your session:
+>
+> **`fact-check-workflow`**
+> - `npx skills add anthropics/claude-plugins-official@fact-check-workflow`
+>
+> **`literature-review`**
+> - `npx skills add anthropics/claude-plugins-official@literature-review`
+>
+> **`document-skills:pdf`**
+> - `npx skills add anthropics/claude-plugins-official@document-skills`
+>
+> **`data-visualization`**
+> - `npx skills add anthropics/claude-plugins-official@data-visualization`
+>
+> **`expert-panel`**
+> - `npx skills add thedanielmay/expert-panel-skill`
+> - `/plugin install expert-panel@thedanielmay`
+>
+> Or type **'continue anyway'** to proceed — steps that need missing skills will be skipped."
+
+If the user types 'continue anyway', note which skills are unavailable and proceed. When a missing skill would normally be invoked, skip that step and note it inline: "(skipped — `literature-review` not available)".
+
+If all skills are present, proceed silently without mentioning the check.
+
+---
+
 **Reference files in `references/`:**
 - `~/.claude/skills/shared/references/INTELLIGENCE-STANDARDS.md` — **Read this first at the start of every investigation.** Universal standards governing all intelligence work: STOP gate, scoping document, KIT Answer Register, confidence ratings, saturation rule, wave thresholds, progress reporting, synthesis sequence, universal deliverables, disambiguation routing, tool check, ethical boundaries.
 - `~/.claude/skills/shared/references/web-access-layers.md` — Four-layer web access architecture. Read this at the start of every investigation.
