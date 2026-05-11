@@ -1,10 +1,19 @@
 {
   "name": "topic-intel-skill",
-  "description": "Deep, multi-source intelligence research on any non-company topic — markets, industries, policies, regulations, academic fields, technology categories, geographic communities, trends, and public figures.",
-  "version": "1.0.0",
+  "description": "Deep, multi-source intelligence research on any non-company topic \u2014 markets, industries, policies, regulations, academic fields, technology categories, geographic communities, trends, and public figures.",
+  "version": "2.1.0",
   "author": {
     "name": "Daniel May",
     "email": "daniel@thedanielmay.com"
   },
-  "keywords": ["research", "intelligence", "osint", "market research", "policy", "academic", "trends", "investigation"]
+  "keywords": [
+    "research",
+    "intelligence",
+    "osint",
+    "market research",
+    "policy",
+    "academic",
+    "trends",
+    "investigation"
+  ]
 }
