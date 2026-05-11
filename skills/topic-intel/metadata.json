@@ -1,6 +1,6 @@
 {
-  "version": "2.0.0",
+  "version": "2.1.0",
   "organization": "Intelligence Research",
   "date": "May 2026",
-  "abstract": "Structured intelligence-gathering skill for any non-company topic. Covers 7 topic types (MKT, POL, SCI, TEC, GEO, TRD, PRS) with module-specific phases, source registers, expert panels, analytical frameworks, and output templates. v2.0.0 adds anti-hallucination enforcement: Cite-Before-You-Write (synthesis-source-register), Numeric Quarantine, Fabrication Detection Pass with 12-flag checklist, SCI Citation Manifest, POL Verbatim Provision Rule, and Module Contamination Firewall. Integrates fact-check-workflow, literature-review, document-skills:pdf, and data-visualization. Includes OSINT techniques, agent dispatch guidance, multi-module chaining, and Refresh Investigation protocol."
+  "abstract": "Structured intelligence-gathering skill for any non-company topic. Covers 7 topic types (MKT, POL, SCI, TEC, GEO, TRD, PRS) with module-specific phases, source registers, expert panels, analytical frameworks, and output templates. v2.1.0 adds dependency check for fact-check-workflow, literature-review, document-skills:pdf, data-visualization, and expert-panel. v2.0.0 added anti-hallucination enforcement: Cite-Before-You-Write, Numeric Quarantine, Fabrication Detection Pass (12-flag checklist), SCI Citation Manifest, POL Verbatim Provision Rule, Module Contamination Firewall. Integrates fact-check-workflow, literature-review, document-skills:pdf, and data-visualization. Includes OSINT techniques, agent dispatch guidance, multi-module chaining, and Refresh Investigation protocol."
 }
