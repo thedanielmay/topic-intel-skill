@@ -1,0 +1,6 @@
+{
+  "version": "1.0.0",
+  "organization": "Intelligence Research",
+  "date": "May 2026",
+  "abstract": "Structured intelligence-gathering skill for any non-company topic. Covers 7 topic types (MKT, POL, SCI, TEC, GEO, TRD, PRS) with module-specific phases, source registers, expert panels, analytical frameworks, and output templates. Integrates fact-check-workflow, literature-review, document-skills:pdf, and data-visualization at defined phase points. Includes OSINT techniques, agent dispatch guidance, multi-module chaining, Quick Scan and Full Investigation tiers, and Refresh Investigation protocol."
+}
