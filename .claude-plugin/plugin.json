@@ -1,19 +1,20 @@
 {
   "name": "topic-intel-skill",
-  "description": "Deep, multi-source intelligence research on any non-company topic \u2014 markets, industries, policies, regulations, academic fields, technology categories, geographic communities, trends, and public figures.",
-  "version": "2.1.0",
+  "version": "2.1.1",
+  "description": "Deep, multi-source intelligence research on any non-company topic: markets, industries, policies, regulations, academic fields, technology categories, geographic communities, trends, and public figures.",
   "author": {
     "name": "Daniel May",
-    "email": "daniel@thedanielmay.com"
+    "url": "https://github.com/thedanielmay"
   },
+  "homepage": "https://github.com/thedanielmay/topic-intel-skill",
+  "repository": "https://github.com/thedanielmay/topic-intel-skill",
+  "license": "MIT",
   "keywords": [
     "research",
     "intelligence",
     "osint",
     "market research",
     "policy",
-    "academic",
-    "trends",
-    "investigation"
+    "trends"
   ]
 }

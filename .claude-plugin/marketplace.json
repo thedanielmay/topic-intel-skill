@@ -1,0 +1,14 @@
+{
+  "name": "topic-intel",
+  "owner": {
+    "name": "Daniel May",
+    "url": "https://github.com/thedanielmay"
+  },
+  "plugins": [
+    {
+      "name": "topic-intel-skill",
+      "source": "./",
+      "description": "Deep, multi-source intelligence research on any non-company topic: markets, industries, policies, regulations, academic fields, technology categories, geographic communities, trends, and public figures."
+    }
+  ]
+}

@@ -18,7 +18,7 @@ Markets, industries, policies, regulations, standards, technology categories, ge
 | TRD | Trend / event | "impact investing in Australia, 2023-2025" |
 | PRS | Person (public figure) | Research on a named public figure |
 
-## v2.0.0 - Anti-Hallucination Protocol
+## Anti-Hallucination Protocol
 
 - **Cite-Before-You-Write** - every synthesis claim mapped to a source file before prose is written
 - **Numeric Quarantine** - every number verified against its source file before PDF generation
@@ -28,6 +28,20 @@ Markets, industries, policies, regulations, standards, technology categories, ge
 - **Module Contamination Firewall** - cross-module claims tagged with source file references
 
 ## Install
+
+Install as a plugin:
+
+```
+/plugin install topic-intel-skill --marketplace thedanielmay/topic-intel-skill
+```
+
+Or link the folder into your skills directory:
+
+```
+ln -s /path/to/topic-intel-skill/skills/topic-intel ~/.claude/skills/topic-intel
+```
+
+Or use the skills CLI:
 
 ```bash
 npx skills add thedanielmay/topic-intel-skill
