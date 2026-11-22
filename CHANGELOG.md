@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.1.2 - 2026-11-23
+
+- Marketplace file gains a description, so the full check passes again (thedanielmay/agent-tools#10).
+
 ## 2.1.1 - 2026-11-22
 
 - Added the marketplace files: marketplace.json, LICENSE and CHANGELOG.md.

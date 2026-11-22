@@ -4,6 +4,9 @@
     "name": "Daniel May",
     "url": "https://github.com/thedanielmay"
   },
+  "metadata": {
+    "description": "Deep, multi-source intelligence research on any non-company topic: markets, industries, policies, regulations, academic fields, technology categories, geographic communities, trends, and public figures."
+  },
   "plugins": [
     {
       "name": "topic-intel-skill",
