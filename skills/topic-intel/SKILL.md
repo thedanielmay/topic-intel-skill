@@ -3,7 +3,7 @@ name: topic-intel
 description: "Deep, multi-source intelligence research on any non-company topic. Use this skill whenever the user wants to research a market, industry, policy, regulation, standard, technology category, geographic community, trend, movement, academic field, or public figure. Triggers include: 'research [topic]', 'deep dive on [topic]', 'brief me on [topic]', 'what do we know about [topic]', 'landscape of [topic]', 'state of [topic]', 'market analysis of [topic]', 'intelligence on [topic]', 'look into [topic]', 'topic-intel: [topic]', or any request to understand a non-company subject in depth. Also triggers on: market research requests, policy analysis requests, regulatory landscape requests, technology comparison requests, community ecosystem mapping, trend analysis, and public figure background research. Do NOT use for research on a specific named company or organisation — use company-intel instead. When the subject could be either a company or a topic, show the disambiguation prompt."
 license: MIT
 metadata:
-  version: "2.1.2"
+  version: "2.1.3"
 ---
 
 # Topic Intelligence Research
