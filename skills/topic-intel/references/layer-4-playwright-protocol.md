@@ -1,4 +1,4 @@
-# Layer 4 — Playwright Universal Fallback Protocol
+# Layer 4 — Playwright Opt-In Protocol
 
 ## Purpose
 
@@ -6,9 +6,9 @@ This is the canonical Layer 4 specification. Both `company-intel` and `topic-int
 
 This document covers:
 - When to escalate to Layer 4 (decision tree)
-- What to execute when Layer 4 is triggered (templates)
+- What to execute after the user says yes for a source (templates)
 - What to log when Layer 4 also fails (inaccessible-sources register)
-- LinkedIn-specific protocol
+- Public sources and sources behind a login
 - Operational security
 
 ---
@@ -57,58 +57,52 @@ STEP 3 — Layer 3: Is a scraping service configured?
 
 STEP 4 — Layer 4 gate:
    Does this source require interactive/JS content?
-   (JS-rendered SPA, infinite scroll, form submission, login wall, dynamic content)
-      YES → PROCEED TO LAYER 4 EXECUTION (Section 2).
+   (JS-rendered SPA, infinite scroll, form submission on public pages, dynamic content)
+      YES → Name the source and the reason to the user. Ask for a yes.
+             Run Layer 4 only after the user says yes for that source (Section 2).
+             On a no, log the source as a gap with the reason (Section 3).
       NO  → This is a Layer 3 problem, not Layer 4.
              Declare INACCESSIBLE. Log it (Section 3). Notify user if HIGH priority.
 
 STEP 5 — If Layer 4 also fails:
    Log as fully inaccessible (Section 3).
    Surface to user only if HIGH priority gap.
-   Continue research — never halt on a single failed source.
+   Continue research. Never halt on a single failed source.
 ```
 
-### Automatic vs. pause-and-ask
+### Nothing is automatic
 
-**Attempt automatically** (no pause) when:
-- Source is a known Layer 4 target (LinkedIn, Glassdoor, JS-rendered government portals)
-- Content is publicly accessible but JS-rendered
-- No login is required
+Layer 4 is opt in. For every source, tell the user the URL and the reason before any Layer 4 attempt. Run the browser only after the user says yes for that source. On a no, log the source as a gap with the reason. If Playwright is not installed, say so and log the gap with that reason. Do not use Layer 4 on a source behind a login.
 
-**Pause and inform the user first** when:
-- Source requires authentication (login wall detected)
-- Investigation is flagged as sensitive
-
-Pause message (show only on first Layer 4 trigger in a session):
+Ask message (show for each source before Layer 4):
 ```
-Layer 4 (Playwright) triggered for: [URL]
-Reason: [e.g. "JS-rendered content — WebFetch returned empty body"]
-Action: Launching headless browser. This may take 15–30 seconds.
+Layer 4 (Playwright) requested for: [URL]
+Reason: [e.g. "JS-rendered content, WebFetch returned an empty body"]
+Action: Run only after your yes for this source.
 ```
 
-### Known JS-rendered sources — skip directly to Layer 4
+### Known JS-rendered public sources
 
-For these sources, do not attempt WebFetch. Use Layer 2 WebSearch to find the URL, then go directly to Layer 4:
-- `linkedin.com` — all pages
-- `glassdoor.com` — all pages
-- `seek.com.au` — job listing detail pages
-- `productreview.com.au` — review pages
-- ASIC Connect (`connectonline.asic.gov.au`) — form-based search
+For these sources, do not attempt WebFetch. Use Layer 2 WebSearch to find the URL, then ask the user before any Layer 4 attempt:
+- `glassdoor.com`: all pages
+- `seek.com.au`: job listing detail pages
+- `productreview.com.au`: review pages
+- ASIC Connect (`connectonline.asic.gov.au`): form-based search
 - Fair Work Commission online search
 
 ---
 
 ## Section 2 — Layer 4 Execution Templates
 
-**CRITICAL:** Always use `/usr/bin/python3` (Python 3.9, system install — Playwright is installed here).
-Do NOT use `python3` — it resolves to Homebrew Python 3.14 where Playwright is NOT installed.
+Playwright runs as a normal browser. It identifies as automation. Do not use stealth tools, user-agent spoofing or other evasion. Do not save or reuse session cookies.
 
 ### Pre-flight check (run once per session)
 
 ```bash
-/usr/bin/python3 -c "import playwright; print('playwright ok')" 2>/dev/null || echo "playwright NOT installed"
-/usr/bin/python3 -c "from playwright_stealth import Stealth; print('stealth ok')" 2>/dev/null || echo "stealth NOT installed"
+python3 -c "import playwright" 2>/dev/null || echo "Playwright is not installed"
 ```
+
+If the import fails, say Playwright is not installed and skip Layer 4. Log each affected source as a gap with that reason.
 
 ---
 
@@ -117,9 +111,8 @@ Do NOT use `python3` — it resolves to Homebrew Python 3.14 where Playwright is
 Use for: JS-rendered pages, SPAs, government portals that return blank via WebFetch.
 
 ```python
-/usr/bin/python3 << 'PYEOF'
+python3 << 'PYEOF'
 from playwright.sync_api import sync_playwright
-from playwright_stealth import Stealth
 import sys
 
 TARGET_URL = "REPLACE_WITH_URL"
@@ -127,13 +120,8 @@ TIMEOUT_MS = 30000  # increase to 60000 for known-slow sources (ACNC, court port
 
 with sync_playwright() as p:
     browser = p.chromium.launch(headless=True)
-    context = browser.new_context(
-        user_agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
-                   "AppleWebKit/537.36 (KHTML, like Gecko) "
-                   "Chrome/120.0.0.0 Safari/537.36"
-    )
+    context = browser.new_context()
     page = context.new_page()
-    Stealth().apply_stealth_sync(page)
     try:
         page.goto(TARGET_URL, timeout=TIMEOUT_MS, wait_until="domcontentloaded")
         page.wait_for_load_state("networkidle", timeout=10000)
@@ -145,19 +133,18 @@ with sync_playwright() as p:
 PYEOF
 ```
 
-If body returns fewer than 200 chars, still has bot detection — escalate to Template B or C.
+If the body returns fewer than 200 chars or shows a bot check, try Template B or C.
 
 ---
 
 ### Template B — Infinite scroll / dynamic content loading
 
-Use for: LinkedIn post feeds, product listing pages, news archives that paginate on scroll.
+Use for: public post feeds, product listing pages, news archives that paginate on scroll.
 
 ```python
-/usr/bin/python3 << 'PYEOF'
+python3 << 'PYEOF'
 from playwright.sync_api import sync_playwright
-from playwright_stealth import Stealth
-import time, sys
+import time
 
 TARGET_URL = "REPLACE_WITH_URL"
 SCROLL_PASSES = 4
@@ -165,13 +152,8 @@ SCROLL_PAUSE_SEC = 2.5
 
 with sync_playwright() as p:
     browser = p.chromium.launch(headless=True)
-    context = browser.new_context(
-        user_agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
-                   "AppleWebKit/537.36 (KHTML, like Gecko) "
-                   "Chrome/120.0.0.0 Safari/537.36"
-    )
+    context = browser.new_context()
     page = context.new_page()
-    Stealth().apply_stealth_sync(page)
     page.goto(TARGET_URL, timeout=30000, wait_until="domcontentloaded")
     time.sleep(2)
     for i in range(SCROLL_PASSES):
@@ -190,9 +172,8 @@ PYEOF
 Use for: ASIC Connect company search, court filing portals, government tender searches.
 
 ```python
-/usr/bin/python3 << 'PYEOF'
+python3 << 'PYEOF'
 from playwright.sync_api import sync_playwright
-from playwright_stealth import Stealth
 import time, sys
 
 BASE_URL              = "REPLACE_WITH_FORM_URL"
@@ -203,13 +184,8 @@ RESULTS_SELECTOR      = "#results"              # replace with actual selector
 
 with sync_playwright() as p:
     browser = p.chromium.launch(headless=True)
-    context = browser.new_context(
-        user_agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
-                   "AppleWebKit/537.36 (KHTML, like Gecko) "
-                   "Chrome/120.0.0.0 Safari/537.36"
-    )
+    context = browser.new_context()
     page = context.new_page()
-    Stealth().apply_stealth_sync(page)
     page.goto(BASE_URL, timeout=30000, wait_until="domcontentloaded")
     time.sleep(1.5)
     page.fill(SEARCH_INPUT_SELECTOR, SEARCH_TERM)
@@ -232,10 +208,8 @@ PYEOF
 Use for: Government reports gated behind a JS-driven download button.
 
 ```python
-/usr/bin/python3 << 'PYEOF'
+python3 << 'PYEOF'
 from playwright.sync_api import sync_playwright
-from playwright_stealth import Stealth
-import os, sys
 
 TARGET_URL            = "REPLACE_WITH_PDF_PAGE_URL"
 OUTPUT_PATH           = "/tmp/playwright-download.pdf"
@@ -245,7 +219,6 @@ with sync_playwright() as p:
     browser = p.chromium.launch(headless=True)
     context = browser.new_context(accept_downloads=True)
     page = context.new_page()
-    Stealth().apply_stealth_sync(page)
     page.goto(TARGET_URL, timeout=30000, wait_until="domcontentloaded")
     with page.expect_download(timeout=60000) as download_info:
         page.click(DOWNLOAD_LINK_SELECTOR)
@@ -259,93 +232,13 @@ PYEOF
 
 ---
 
-### Template E — Login wall: headed session capture and headless reuse
-
-**Step 1 — Headed login (run once, interactive):**
-
-Tell the user: "This source requires authentication. I'll open a browser window — please log in normally, and I'll save the session for headless reuse."
-
-```python
-/usr/bin/python3 << 'PYEOF'
-from playwright.sync_api import sync_playwright
-import json, os
-
-SERVICE             = "REPLACE_WITH_SERVICE_NAME"  # e.g. "linkedin"
-LOGIN_URL           = "REPLACE_WITH_LOGIN_URL"
-SUCCESS_URL_PATTERN = "REPLACE_WITH_POST_LOGIN_URL_PATTERN"  # e.g. "**/feed/**"
-SESSION_DIR         = os.path.expanduser(f"~/.playwright-sessions/{SERVICE}")
-os.makedirs(SESSION_DIR, exist_ok=True)
-
-with sync_playwright() as p:
-    browser = p.chromium.launch(headless=False)
-    context = browser.new_context()
-    page    = context.new_page()
-    page.goto(LOGIN_URL)
-    print(f"Browser opened. Please log in to {SERVICE}.")
-    print("Waiting up to 120 seconds for successful login...")
-    page.wait_for_url(SUCCESS_URL_PATTERN, timeout=120000)
-    cookies = context.cookies()
-    cookie_path = os.path.join(SESSION_DIR, "cookies.json")
-    with open(cookie_path, "w") as f:
-        json.dump(cookies, f)
-    print(f"Session saved: {cookie_path} ({len(cookies)} cookies)")
-    browser.close()
-PYEOF
-```
-
-**Step 2 — Headless reuse (all subsequent calls):**
-
-```python
-/usr/bin/python3 << 'PYEOF'
-from playwright.sync_api import sync_playwright
-from playwright_stealth import Stealth
-import json, os, sys, time
-
-SERVICE     = "REPLACE_WITH_SERVICE_NAME"
-TARGET_URL  = "REPLACE_WITH_TARGET_URL"
-COOKIE_PATH = os.path.expanduser(f"~/.playwright-sessions/{SERVICE}/cookies.json")
-
-if not os.path.exists(COOKIE_PATH):
-    print("ERROR: No saved session. Run the headed login template first.", file=sys.stderr)
-    sys.exit(1)
-
-with open(COOKIE_PATH) as f:
-    cookies = json.load(f)
-
-with sync_playwright() as p:
-    browser = p.chromium.launch(headless=True)
-    context = browser.new_context(
-        user_agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
-                   "AppleWebKit/537.36 (KHTML, like Gecko) "
-                   "Chrome/120.0.0.0 Safari/537.36"
-    )
-    context.add_cookies(cookies)
-    page = context.new_page()
-    Stealth().apply_stealth_sync(page)
-    page.goto(TARGET_URL, timeout=30000, wait_until="domcontentloaded")
-    time.sleep(3)
-    content = page.inner_text("body")
-    if "sign in" in content[:500].lower() or "log in" in content[:500].lower():
-        print("SESSION_EXPIRED: re-run the headed login template.", file=sys.stderr)
-        sys.exit(1)
-    print(content[:12000])
-    browser.close()
-PYEOF
-```
-
-**Saved sessions on this machine:**
-- LinkedIn: `~/.playwright-sessions/linkedin/cookies.json` (saved 3 March 2026)
-
----
-
 ### Template F — Retry wrapper
 
-Apply when Templates A–D return thin content on first attempt.
+Apply when Templates A to D return thin content on first attempt.
 
 ```python
-/usr/bin/python3 << 'PYEOF'
+python3 << 'PYEOF'
 from playwright.sync_api import sync_playwright
-from playwright_stealth import Stealth
 import time, sys
 
 TARGET_URL  = "REPLACE_WITH_URL"
@@ -357,13 +250,8 @@ def fetch_with_retry(url, max_retries):
         try:
             with sync_playwright() as p:
                 browser = p.chromium.launch(headless=True)
-                context = browser.new_context(
-                    user_agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
-                               "AppleWebKit/537.36 (KHTML, like Gecko) "
-                               "Chrome/120.0.0.0 Safari/537.36"
-                )
+                context = browser.new_context()
                 page = context.new_page()
-                Stealth().apply_stealth_sync(page)
                 page.goto(url, timeout=TIMEOUT_MS, wait_until="domcontentloaded")
                 time.sleep(2)
                 content = page.inner_text("body")
@@ -401,7 +289,7 @@ Append to `inaccessible-sources.md` in the investigation folder:
 | # | URL | Layers tried | Failure mode | Data needed | Priority | Manual action |
 |---|-----|---|---|---|---|---|
 | 1 | https://example.com | L1: N/A · L2: 403 · L3: not configured · L4: timeout ×3 | Pricing detail | HIGH | Open in browser; copy pricing table |
-| 2 | https://linkedin.com/company/x | L2: login wall · L4: session expired | Recent posts, headcount | MEDIUM | Re-run Template E headed login |
+| 2 | https://example.org/members | L2: login wall · L4: not attempted (login required) | Member detail | MEDIUM | User to read the page and paste content |
 ```
 
 **Priority:**
@@ -413,7 +301,7 @@ Append to `inaccessible-sources.md` in the investigation folder:
 
 Continue silently when: all inaccessible sources for a section are MEDIUM or LOW; the section has at least two other sources covering the same need.
 
-Surface to user when: any HIGH-priority source is inaccessible; or Layer 4 itself failed to import.
+Surface to user when: any HIGH-priority source is inaccessible; or Playwright is not installed.
 
 **User notification (pause case):**
 ```
@@ -435,50 +323,13 @@ Never halt the entire investigation for a single inaccessible source.
 
 ---
 
-## Section 4 — LinkedIn-Specific Protocol
+## Section 4 — Sources Behind a Login
 
-### Escalation path
+A source that requires a login is a gap. Do not open a headed browser to log in, and do not save or reuse session cookies. Use only what is publicly visible through Layers 1 to 3.
 
-```
-LinkedIn source encountered:
+If the user reads the page themselves and pastes the content, use what they paste and cite it as user-provided.
 
-STEP 1 — Layer 2 search to find the correct URL slug.
-   WebSearch: '"Company Name" site:linkedin.com/company'
-   WebSearch: '"Person Name" "Job Title" site:linkedin.com/in'
-
-STEP 2 — Skip WebFetch. LinkedIn always blocks it. Go directly to Layer 4.
-
-STEP 3 — Check for saved session:
-   ls ~/.playwright-sessions/linkedin/cookies.json 2>/dev/null
-   EXISTS → Template E Step 2 (headless with cookies)
-   ABSENT → Template A (stealth, no login) for PUBLIC data only
-
-STEP 4 — If stealth returns login redirect:
-   Pause. "LinkedIn requires login. Shall I open a browser for you to log in?"
-   YES → Template E Step 1, then Step 2
-   NO  → Log as inaccessible (authentication declined)
-```
-
-### What is accessible with and without authentication
-
-| LinkedIn data | Unauthenticated | Authenticated |
-|---|---|---|
-| Company name, tagline, follower count | Sometimes | Yes |
-| Company description | Sometimes | Yes |
-| Recent company posts | No | Yes |
-| Person's current job title | Sometimes | Yes |
-| Person's full career history | No | Yes |
-| Job posting details | Partial | Full |
-
-Always note in the research document whether LinkedIn data was obtained unauthenticated or session-authenticated.
-
-### LinkedIn company posts (authenticated)
-
-Use Template B with `SCROLL_PASSES = 6` and `SCROLL_PAUSE_SEC = 3.0`. LinkedIn post feeds require multiple scroll cycles.
-
-### Session expiry detection
-
-Template E Step 2 detects session expiry: if "sign in" or "log in" appears in first 500 chars, exits with code 1. Re-run Template E Step 1 to refresh.
+LinkedIn is not a Layer 4 target. Apply the public-source rule above to LinkedIn company pages, profiles, posts and job postings. Keep the Phase 4 research goals in `phase-playbook.md`. Change only how the data is collected.
 
 ---
 
@@ -487,7 +338,6 @@ Template E Step 2 detects session expiry: if "sign in" or "log in" appears in fi
 ### Why Layer 4 has a larger footprint
 
 - Multiple rapid page views from the same IP appear in target's analytics
-- LinkedIn notifies profile owners when profiles are viewed (all access methods)
 - Unusual visit patterns on small sites may be noticed
 
 ### When to care
@@ -497,33 +347,15 @@ Template E Step 2 detects session expiry: if "sign in" or "log in" appears in fi
 | Large public organisation | Low | None |
 | Small organisation (target might notice) | Medium | Space requests |
 | Sensitive integrity investigation | High | Confirm with user before any Layer 4 |
-| Any LinkedIn profile view | Always notify | Tell user before viewing |
 
-### How to reduce footprint
+### Pace page loads
 
-Add between page loads in multi-page scripts:
+Add a short pause between page loads in multi-page scripts so the site is not hit with a burst of requests:
+
 ```python
 import random
+import time
+
 time.sleep(random.uniform(2.5, 5.0))
 ```
 
-Rotate user-agent strings for multi-page runs:
-```python
-UA_LIST = [
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36",
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/119.0.0.0 Safari/537.36",
-]
-user_agent = random.choice(UA_LIST)
-```
-
----
-
-## Version and Machine Notes
-
-**Canonical file:** `~/.claude/skills/company-intel/references/layer-4-playwright-protocol.md`
-**Also referenced by:** `topic-intel` — reference this file rather than copying
-
-**Machine-specific:**
-- `/usr/bin/python3` = Python 3.9, Playwright installed, Chromium installed
-- `python3` = Homebrew 3.14, Playwright NOT installed
-- LinkedIn session: `~/.playwright-sessions/linkedin/cookies.json` (saved 3 March 2026)

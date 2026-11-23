@@ -123,6 +123,8 @@ Control which web access layers agents may use based on investigation tier. Brie
 |---|---|---|---|
 | Tier 1 — Quick Scan | Layer 2 | Never | Never |
 | Tier 2 — Standard | Layer 3 | Never | Yes, if configured |
-| Tier 3 — Full Investigation | Layer 4 | Yes | Yes |
+| Tier 3 — Full Investigation | Layer 3 by default | Only after the user says yes for that source | Yes |
 
-Include the tier constraint in every agent briefing: "This is a Tier [N] investigation. Do not use Layer [N+1] or above."
+Layer 4 is never an automatic fallback. An agent that needs it must name the source and why, then wait for the user to say yes for that source. If the user says no, or Playwright is not installed, the agent logs the source as a gap with the reason and moves on.
+
+Include the tier constraint in every agent briefing: "This is a Tier [N] investigation. Do not use Layer [N+1] or above. For Layer 4, name the source and why, and wait for the user's approval before running it."

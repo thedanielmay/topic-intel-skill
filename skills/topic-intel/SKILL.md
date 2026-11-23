@@ -3,7 +3,7 @@ name: topic-intel
 description: "Deep, multi-source intelligence research on any non-company topic. Use this skill whenever the user wants to research a market, industry, policy, regulation, standard, technology category, geographic community, trend, movement, academic field, or public figure. Triggers include: 'research [topic]', 'deep dive on [topic]', 'brief me on [topic]', 'what do we know about [topic]', 'landscape of [topic]', 'state of [topic]', 'market analysis of [topic]', 'intelligence on [topic]', 'look into [topic]', 'topic-intel: [topic]', or any request to understand a non-company subject in depth. Also triggers on: market research requests, policy analysis requests, regulatory landscape requests, technology comparison requests, community ecosystem mapping, trend analysis, and public figure background research. Do NOT use for research on a specific named company or organisation — use company-intel instead. When the subject could be either a company or a topic, show the disambiguation prompt."
 license: MIT
 metadata:
-  version: "2.3.0"
+  version: "2.4.0"
 ---
 
 # Topic Intelligence Research
@@ -287,14 +287,13 @@ Read `references/web-access-layers.md` for the full protocol.
 - **Layer 1 — API-first:** Use public APIs where available (ABS, legislation.gov.au, Semantic Scholar, CrossRef, ACNC, etc.)
 - **Layer 2 — Search as router:** Use WebSearch to find the exact URL, then fetch only that URL. Never crawl blind.
 - **Layer 3 — Scraping service:** If WebFetch fails, route through ScrapingBee/ZenRows/BrightData if configured.
-- **Layer 4 — Playwright:** Universal fallback for all other failures.
+- **Layer 4 - Playwright:** Opt-in only. Run it for a named source after the user says yes for that source. It is not an automatic fallback.
 
-**Universal fallback rule:** If Layers 1, 2, and 3 have all failed or are inapplicable, AND the source contains interactive or JS-rendered content, ALWAYS attempt Layer 4 (Playwright) before declaring a source inaccessible. Read `references/layer-4-playwright-protocol.md` for the complete decision tree, execution templates, and source-logging format.
+**Layer 4 opt-in rule:** If Layers 1, 2, and 3 have failed or are inapplicable, and the source has interactive or JS-rendered content, tell the user the exact source and why Layer 4 is needed. Run Layer 4 only after the user says yes for that source. If the user says no, or Playwright is not installed, log the source as a gap with that reason in `inaccessible-sources.md` and move on. Layer 4 runs as a normal browser that identifies as automation. LinkedIn is not a Layer 4 target. Use only LinkedIn content that is publicly visible without login through Layers 1 to 3, or content the user pastes. Read `references/layer-4-playwright-protocol.md` for the execution protocol and source-logging format.
 
 **Pre-investigation tool check** (run once at the start of every investigation):
 ```bash
-/usr/bin/python3 -c "import playwright; print('playwright ok')" 2>/dev/null || echo "playwright NOT installed"
-/usr/bin/python3 -c "from playwright_stealth import Stealth; print('stealth ok')" 2>/dev/null || echo "stealth NOT installed"
+python3 -c "import playwright" 2>/dev/null && echo "playwright ok" || echo "playwright NOT installed; skip Layer 4"
 echo "ScrapingBee: ${SCRAPINGBEE_API_KEY:+configured}"
 echo "BrightData:  ${BRIGHTDATA_API_KEY:+configured}"
 echo "ZenRows:     ${ZENROWS_API_KEY:+configured}"
@@ -302,7 +301,9 @@ echo "ZenRows:     ${ZENROWS_API_KEY:+configured}"
 
 Run the check and record the actual results in `research-log.md`. Note any tools that are unavailable before proceeding.
 
-See `references/INTELLIGENCE-STANDARDS.md` Section 15 for the standard tool check format and Python binary note.
+If the Playwright check fails, say Playwright is not installed, skip Layer 4 for this investigation, and log each affected source as a gap with that reason.
+
+See `references/INTELLIGENCE-STANDARDS.md` Section 15 for the standard tool check format.
 
 ---
 
@@ -327,7 +328,7 @@ Run phases in waves to maximise efficiency:
 **Wave-level parallelisation:** Each wave can be executed using parallel agents rather than sequentially. When doing so:
 - Include the confirmed scoping document, current KIT status, and research log in every agent briefing
 - Use Explore agents for Waves 2-3 (source discovery), general-purpose agents for Waves 4-5 (analysis and synthesis)
-- Apply tier effort caps: Tier 1 = Layer 2 max; Tier 2 = Layer 3 max; Tier 3 = Layer 4 allowed
+- Apply tier effort caps: Tier 1 = Layer 2 max; Tier 2 = Layer 3 max; Tier 3 = Layer 3 by default, with Layer 4 only after the user approves that source
 - After each agent completes, it writes a structured block to `research-log.md` (see `topic-agent-dispatch.md`)
 - Sequential execution remains valid — dispatch is a performance optimisation, not a requirement
 
@@ -411,7 +412,7 @@ Append to `research-log.md` throughout the investigation. See `references/INTELL
 4. **Source independence.** Two organisations citing the same government report = one source.
 5. **Gaps are intelligence.** Interpret every gap — don't just list it.
 6. **Contested knowledge.** Where genuine expert disagreement exists, surface it — don't resolve it artificially.
-7. **Universal Layer 4 fallback.** If Layers 1–3 fail, always try Playwright before declaring a source inaccessible.
-8. **Ethical boundaries.** All intelligence from publicly accessible sources only. Privacy Act applies. Person research covers public role only.
+7. **Layer 4 is opt-in.** If Layers 1-3 fail, name the source and why, then run Playwright only after the user says yes for that source. Log a gap when the user says no or Playwright is not installed.
+8. **Ethical boundaries.** All intelligence comes from publicly accessible sources. Respect each site's terms and robots rules. Privacy Act applies. Person research covers public role only.
 9. **Actionable outputs.** The reader should know what to DO, not just what to THINK.
 10. **Single source of truth.** Standards shared with company-intel (STOP gate, KIT register, saturation rule, wave thresholds, progress reporting, synthesis sequence, deliverables, disambiguation) are defined in `references/INTELLIGENCE-STANDARDS.md`. Do not duplicate them here — reference them.

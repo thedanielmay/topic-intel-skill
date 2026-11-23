@@ -2,7 +2,7 @@
 
 ## Overview
 
-This register provides the primary sources, API endpoints, access notes, and filtering heuristics for each topic-intel module. Use Layer 1 (API) sources first — they are faster, more reliable, and return structured data. Fall back to Layer 2 (search → fetch) and Layer 4 (Playwright) per the web-access-layers.md protocol.
+This register provides the primary sources, API endpoints, access notes, and filtering heuristics for each topic-intel module. Use Layer 1 (API) sources first, since they are faster, more reliable, and return structured data. Fall back to Layer 2 (search then fetch) and, when configured, Layer 3 (scraping service). Layer 4 (Playwright) runs only after the user approves that source, per the web-access-layers.md protocol.
 
 ---
 
@@ -27,7 +27,7 @@ curl "https://web.archive.org/web/{timestamp}/{url}"
 
 **Google Trends** — Topic trajectory and seasonality:
 - WebFetch: `https://trends.google.com/trends/explore?q={encoded_topic}&geo=AU`
-- Note: JS-rendered. Use Layer 4 Template A.
+- Note: JS-rendered. Use Layers 1 to 3 first. Ask the user before using Layer 4 for this source.
 
 **Wikipedia** — Use as a reference MAP to primary sources, not as a primary source (★ rating only).
 
@@ -84,7 +84,7 @@ These sources apply across multiple modules or provide cross-cutting data not co
 | Exploding Topics | Free (limited): `https://explodingtopics.com/` | TRD, TEC | Identifies trends before mainstream coverage; keyword-based |
 | Metaculus | Free WebFetch: `https://www.metaculus.com/questions/` | TRD | Prediction market; community forecasts on specific questions |
 | Manifold Markets | Free WebFetch: `https://manifold.markets/browse` | TRD | Prediction market; real-money equivalent probabilities |
-| Google Trends (advanced) | Layer 4: `https://trends.google.com/trends/explore?q={term}&geo=AU` | TRD | Interest trajectory over time; compare multiple terms |
+| Google Trends (advanced) | `https://trends.google.com/trends/explore?q={term}&geo=AU` | TRD | Interest trajectory over time; JS-rendered, so Layer 4 only after user approval |
 
 ---
 
@@ -294,7 +294,7 @@ curl "https://api.github.com/repos/{owner}/{repo}"
 
 **Crunchbase** (free tier)
 - WebFetch: `https://www.crunchbase.com/search/organizations`
-- Note: JS-rendered, Layer 4 Template A required
+- Note: JS-rendered. Use Layers 1 to 3 first. Ask the user before using Layer 4 for this source.
 - WebSearch: `site:crunchbase.com "{company or category}"`
 
 **Product Hunt**
@@ -368,7 +368,7 @@ curl "https://api.github.com/repos/{owner}/{repo}"
 | AASB | https://aasb.gov.au/news/latest-news/ |
 
 **Google Trends trajectory**
-- Use Layer 4 Template A on: `https://trends.google.com/trends/explore?q={encoded_topic}&geo=AU`
+- Use Layers 1 to 3 on: `https://trends.google.com/trends/explore?q={encoded_topic}&geo=AU`. Ask the user before using Layer 4 for this JS-rendered source.
 
 **Big-4 accounting firm publications** (credible secondary commentary on regulatory trends)
 - WebSearch: `site:deloitte.com OR site:kpmg.com OR site:pwc.com.au OR site:ey.com "[regulatory topic]" filetype:pdf`
@@ -377,7 +377,7 @@ curl "https://api.github.com/repos/{owner}/{repo}"
 
 ## Module PRS — Person Research Sources
 
-**LinkedIn** — Primary source for career history and role. Requires Layer 4 (see layer-4-playwright-protocol.md LinkedIn protocol).
+**LinkedIn** — A source for career history and role. Use only what is publicly visible without login through Layers 1 to 3, or what the user pastes. LinkedIn is not a Layer 4 target. If a page sits behind a login, log it as a gap and ask the user to paste the content they want used.
 
 **Organisation websites** — Current role confirmation (★★ if independently published)
 
@@ -457,18 +457,20 @@ When any source fails all layers, add to `inaccessible-sources.md`:
 
 For paywalled sources, use failure mode: `Paywalled — no free access` and manual action: `Access via [library/institution] or purchase`.
 
+When the user declines Layer 4, or Playwright is not installed, record that as the Layer 4 failure mode and give the reason in the same row.
+
 ---
 
 ## Source Effort Caps by Investigation Tier
 
-Control web access layer usage based on investigation tier. Apply these caps when briefing agents or deciding whether to attempt Layer 3/4 access.
+Control web access layer usage based on investigation tier. Apply these caps when briefing agents or deciding whether to attempt Layer 3 or Layer 4 access. Layer 4 is never automatic.
 
 | Tier | Max web access layer | Playwright (Layer 4) | Scraping service (Layer 3) | Rationale |
 |---|---|---|---|---|
 | Tier 1 — Quick Scan | Layer 2 (search -> fetch) | Never | Never | Speed and simplicity; Quick Scans should complete in ~30 min |
 | Tier 2 — Standard | Layer 3 (scraping service) | Never | Yes, if configured | Allows JS-rendered sources; preserves time budget |
-| Tier 3 — Full Investigation | Layer 4 (Playwright) | Yes | Yes | All sources accessible; no layer restrictions |
+| Tier 3 — Full Investigation | Layer 3 by default, Layer 4 by approval | Only after the user says yes for that source | Yes | Layers 1 to 3 first; then Layer 4 with consent |
 
 **When Layer 3 is not configured:** Fall back to Layer 2 for Tier 2 investigations. Do not block the investigation — log the inaccessible source in `inaccessible-sources.md` and proceed.
 
-**When Layer 4 is available:** Always attempt Layer 4 before declaring a source inaccessible in Tier 3 investigations. See `references/layer-4-playwright-protocol.md` for the full execution protocol.
+**When Layer 4 is available:** Tell the user which source needs it and why. Attempt it only after the user says yes for that source. If the user says no, or Playwright is not installed, log the source as a gap with that reason. See `references/layer-4-playwright-protocol.md` for the execution protocol.

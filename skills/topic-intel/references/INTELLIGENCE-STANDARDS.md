@@ -449,21 +449,20 @@ Is this research about the organisation itself, or the broader topic/landscape?
 
 ## 15. Pre-Investigation Tool Check
 
-Run once at the start of every investigation. Record actual results — do not assume any tool is available:
+Run once at the start of every investigation. Record actual results. Do not assume any tool is available:
 
 ```bash
-/usr/bin/python3 -c "import playwright; print('playwright ok')" 2>/dev/null || echo "playwright NOT installed"
-/usr/bin/python3 -c "from playwright_stealth import Stealth; print('stealth ok')" 2>/dev/null || echo "stealth NOT installed"
+python3 -c "import playwright" 2>/dev/null || echo "Playwright is not installed"
 echo "ScrapingBee: ${SCRAPINGBEE_API_KEY:+configured}"
 echo "BrightData:  ${BRIGHTDATA_API_KEY:+configured}"
 echo "ZenRows:     ${ZENROWS_API_KEY:+configured}"
 ```
 
-**Layer 4 protocol:** If Playwright is confirmed available, the full Layer 4 execution protocol lives in `references/layer-4-playwright-protocol.md`. Read it before executing any Playwright scripts — it covers decision templates, stealth setup, operational security, and source logging format. Both company-intel and topic-intel reference this file.
+If the import fails, say Playwright is not installed and skip Layer 4. Log each affected source as a gap with that reason.
 
-**Always use `/usr/bin/python3`** (system Python 3.9, where Playwright is installed). Do not use `python3` — it resolves to a different Python installation where Playwright is not installed.
+**Layer 4 protocol:** Layer 4 is opt in. Tell the user the source and the reason, then run the browser only after the user says yes for that source. The full Layer 4 execution protocol lives in `references/layer-4-playwright-protocol.md`. Read it before executing any Playwright scripts. It covers the opt-in gate, decision templates, operational security, and source logging format. Both company-intel and topic-intel reference this file.
 
-Record results in `research-log.md`. Note any unavailable tools before proceeding — unavailable tools affect which research paths are viable.
+Record results in `research-log.md`. Note any unavailable tools before proceeding. Unavailable tools affect which research paths are viable.
 
 ---
 
@@ -473,11 +472,13 @@ All intelligence work across both skills operates within these boundaries:
 
 - All intelligence from publicly accessible sources only
 - No misrepresentation of identity or purpose to access information
-- No access to authenticated systems without explicit user authorisation
+- No access to authenticated systems. A source behind a login is a gap unless the user reads it and pastes what they want used.
+- Do not use stealth tools or session cookies. When the user approves Layer 4, Playwright runs as a normal browser that identifies as automation.
+- Respect each site's terms of service and robots rules
 - Privacy Act and applicable legislation apply throughout
-- Person research covers public role only — career, public statements, professional record, institutional affiliations. Private life is out of scope.
-- LinkedIn profile views notify the profile owner — inform the user before viewing
-- For sensitive investigations, inform the user before any Layer 4 (Playwright) access that leaves a larger footprint
+- Person research covers public role only: career, public statements, professional record, institutional affiliations. Private life is out of scope.
+- LinkedIn profile views notify the profile owner. Inform the user before viewing.
+- For every Layer 4 (Playwright) attempt, tell the user the source and the reason. Run it only after a yes for that source. On a no, log the source as a gap with the reason.
 
 ---
 
