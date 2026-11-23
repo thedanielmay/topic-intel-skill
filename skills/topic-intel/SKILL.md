@@ -3,7 +3,7 @@ name: topic-intel
 description: "Deep, multi-source intelligence research on any non-company topic. Use this skill whenever the user wants to research a market, industry, policy, regulation, standard, technology category, geographic community, trend, movement, academic field, or public figure. Triggers include: 'research [topic]', 'deep dive on [topic]', 'brief me on [topic]', 'what do we know about [topic]', 'landscape of [topic]', 'state of [topic]', 'market analysis of [topic]', 'intelligence on [topic]', 'look into [topic]', 'topic-intel: [topic]', or any request to understand a non-company subject in depth. Also triggers on: market research requests, policy analysis requests, regulatory landscape requests, technology comparison requests, community ecosystem mapping, trend analysis, and public figure background research. Do NOT use for research on a specific named company or organisation — use company-intel instead. When the subject could be either a company or a topic, show the disambiguation prompt."
 license: MIT
 metadata:
-  version: "2.2.0"
+  version: "2.3.0"
 ---
 
 # Topic Intelligence Research
@@ -65,9 +65,9 @@ If all skills are present, proceed silently without mentioning the check.
 
 **Reference files. Read each one at the time named below.**
 
-- `~/.claude/skills/shared/references/INTELLIGENCE-STANDARDS.md`: read first, at the start of every investigation. It holds the STOP gate, scoping document, KIT register, confidence ratings, saturation rule, wave rules, progress reporting, synthesis sequence, deliverables, disambiguation routing, tool check and ethical boundaries.
-- `~/.claude/skills/shared/references/web-access-layers.md`: read at the start of every investigation. It describes the four web access layers.
-- `~/.claude/skills/shared/references/layer-4-playwright-protocol.md`: read when Layer 4 is triggered.
+- `references/INTELLIGENCE-STANDARDS.md`: read first, at the start of every investigation. It holds the STOP gate, scoping document, KIT register, confidence ratings, saturation rule, wave rules, progress reporting, synthesis sequence, deliverables, disambiguation routing, tool check and ethical boundaries.
+- `references/web-access-layers.md`: read at the start of every investigation. It describes the four web access layers.
+- `references/layer-4-playwright-protocol.md`: read when Layer 4 is triggered.
 - `references/topic-sources.md`: read when identifying sources. It holds the source register by topic type, with API endpoints and access notes.
 - `references/topic-outputs.md`: read when producing outputs. It holds the output templates for each topic type.
 - `references/topic-analytical-frameworks.md`: read during analysis. It holds the analytical frameworks for topic research.
@@ -110,7 +110,7 @@ Is this research about the organisation itself, or the broader topic?
 **If user selects T:** Continue with this skill.
 **If user selects B:** Run company-intel first for the entity, then return to topic-intel for the sector context.
 
-Full routing logic and natural hand-off points between skills are documented in `~/.claude/skills/shared/references/INTELLIGENCE-STANDARDS.md` Section 14.
+Full routing logic and natural hand-off points between skills are documented in `references/INTELLIGENCE-STANDARDS.md` Section 14.
 
 ---
 
@@ -281,7 +281,7 @@ Save to: `_topic-{slug}/00-summary/topic-scoping.md`
 
 ## Web Access — Four-Layer Architecture
 
-Read `~/.claude/skills/shared/references/web-access-layers.md` for the full protocol.
+Read `references/web-access-layers.md` for the full protocol.
 
 **Summary:**
 - **Layer 1 — API-first:** Use public APIs where available (ABS, legislation.gov.au, Semantic Scholar, CrossRef, ACNC, etc.)
@@ -289,7 +289,7 @@ Read `~/.claude/skills/shared/references/web-access-layers.md` for the full prot
 - **Layer 3 — Scraping service:** If WebFetch fails, route through ScrapingBee/ZenRows/BrightData if configured.
 - **Layer 4 — Playwright:** Universal fallback for all other failures.
 
-**Universal fallback rule:** If Layers 1, 2, and 3 have all failed or are inapplicable, AND the source contains interactive or JS-rendered content, ALWAYS attempt Layer 4 (Playwright) before declaring a source inaccessible. Read `~/.claude/skills/shared/references/layer-4-playwright-protocol.md` for the complete decision tree, execution templates, and source-logging format.
+**Universal fallback rule:** If Layers 1, 2, and 3 have all failed or are inapplicable, AND the source contains interactive or JS-rendered content, ALWAYS attempt Layer 4 (Playwright) before declaring a source inaccessible. Read `references/layer-4-playwright-protocol.md` for the complete decision tree, execution templates, and source-logging format.
 
 **Pre-investigation tool check** (run once at the start of every investigation):
 ```bash
@@ -302,13 +302,13 @@ echo "ZenRows:     ${ZENROWS_API_KEY:+configured}"
 
 Run the check and record the actual results in `research-log.md`. Note any tools that are unavailable before proceeding.
 
-See `~/.claude/skills/shared/references/INTELLIGENCE-STANDARDS.md` Section 15 for the standard tool check format and Python binary note.
+See `references/INTELLIGENCE-STANDARDS.md` Section 15 for the standard tool check format and Python binary note.
 
 ---
 
 ## Confidence Rating System
 
-See `~/.claude/skills/shared/references/INTELLIGENCE-STANDARDS.md` Section 4 for the full confidence rating system and source independence rule. Apply ★★★/★★/★/⚠ ratings to every piece of information recorded.
+See `references/INTELLIGENCE-STANDARDS.md` Section 4 for the full confidence rating system and source independence rule. Apply ★★★/★★/★/⚠ ratings to every piece of information recorded.
 
 **Source independence matters.** Two sources citing the same original report = one source.
 
@@ -335,13 +335,13 @@ See `topic-agent-dispatch.md` for full guidance: agent briefing templates, per-w
 
 **Wave 2 minimum threshold:** If primary source identification returns fewer than 3 substantive sources for any KIT, pause and report to the user before proceeding to Wave 3. Do not proceed to synthesis on a thin evidence base.
 
-See `~/.claude/skills/shared/references/INTELLIGENCE-STANDARDS.md` Section 6 for the full wave execution rules.
+See `references/INTELLIGENCE-STANDARDS.md` Section 6 for the full wave execution rules.
 
 ---
 
 ## Source Saturation Rule
 
-See `~/.claude/skills/shared/references/INTELLIGENCE-STANDARDS.md` Section 5 for the source saturation rule. Module SCI's additional threshold (≥50% overlap) applies to academic searches and takes precedence over the global rule.
+See `references/INTELLIGENCE-STANDARDS.md` Section 5 for the source saturation rule. Module SCI's additional threshold (≥50% overlap) applies to academic searches and takes precedence over the global rule.
 
 ---
 
@@ -359,7 +359,7 @@ Every KIT must be answered explicitly. Read `references/topic-synthesis.md` for 
 
 ## Progress Reporting
 
-After completing each wave, post a wave summary before beginning the next wave — this is required, not optional. See `~/.claude/skills/shared/references/INTELLIGENCE-STANDARDS.md` Section 6 for the standard wave summary format and Wave 2 minimum threshold rules.
+After completing each wave, post a wave summary before beginning the next wave — this is required, not optional. See `references/INTELLIGENCE-STANDARDS.md` Section 6 for the standard wave summary format and Wave 2 minimum threshold rules.
 
 ---
 
@@ -399,7 +399,7 @@ Every subfolder gets an `INDEX.md` cataloguing its contents with source, date, c
 
 ## Research Log Format
 
-Append to `research-log.md` throughout the investigation. See `~/.claude/skills/shared/references/INTELLIGENCE-STANDARDS.md` Section 13 for the standard research log format.
+Append to `research-log.md` throughout the investigation. See `references/INTELLIGENCE-STANDARDS.md` Section 13 for the standard research log format.
 
 ---
 
@@ -414,4 +414,4 @@ Append to `research-log.md` throughout the investigation. See `~/.claude/skills/
 7. **Universal Layer 4 fallback.** If Layers 1–3 fail, always try Playwright before declaring a source inaccessible.
 8. **Ethical boundaries.** All intelligence from publicly accessible sources only. Privacy Act applies. Person research covers public role only.
 9. **Actionable outputs.** The reader should know what to DO, not just what to THINK.
-10. **Single source of truth.** Standards shared with company-intel (STOP gate, KIT register, saturation rule, wave thresholds, progress reporting, synthesis sequence, deliverables, disambiguation) are defined in `~/.claude/skills/shared/references/INTELLIGENCE-STANDARDS.md`. Do not duplicate them here — reference them.
+10. **Single source of truth.** Standards shared with company-intel (STOP gate, KIT register, saturation rule, wave thresholds, progress reporting, synthesis sequence, deliverables, disambiguation) are defined in `references/INTELLIGENCE-STANDARDS.md`. Do not duplicate them here — reference them.

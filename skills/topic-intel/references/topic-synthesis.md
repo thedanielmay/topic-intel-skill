@@ -20,11 +20,11 @@ Gaps: [what would improve confidence if found]
 
 **If KIT answers point in contradictory directions** (e.g. market is large but barriers are prohibitive, or policy is clear but implementation is absent), surface this tension explicitly in the Executive Summary. Do not resolve it artificially or weight one KIT's answer over another. Contradictory KIT answers are often the most important finding.
 
-See `~/.claude/skills/shared/references/INTELLIGENCE-STANDARDS.md` Section 3 for the full KIT Answer Register format and KIT conflict rule.
+See `references/INTELLIGENCE-STANDARDS.md` Section 3 for the full KIT Answer Register format and KIT conflict rule.
 
 ### Step 2: Triangulation
 
-Build a Triangulation Matrix per `topic-analytical-frameworks.md` - use the template and source type codes defined there. Apply to all key findings. The source type codes (PR/SI/SD/SR) and universal triangulation matrix format are also documented in `~/.claude/skills/shared/references/INTELLIGENCE-STANDARDS.md` Section 7.
+Build a Triangulation Matrix per `topic-analytical-frameworks.md` - use the template and source type codes defined there. Apply to all key findings. The source type codes (PR/SI/SD/SR) and universal triangulation matrix format are also documented in `references/INTELLIGENCE-STANDARDS.md` Section 7.
 
 ### Step 3: Contested Claims
 
@@ -99,7 +99,7 @@ For each investigation, produce a monitoring plan:
 
 ### Step 8: Deliverable
 
-The following are the universal deliverables required for all Full Investigations (see `~/.claude/skills/shared/references/INTELLIGENCE-STANDARDS.md` Section 9 for templates):
+The following are the universal deliverables required for all Full Investigations (see `references/INTELLIGENCE-STANDARDS.md` Section 9 for templates):
 
 **Always produce:**
 - KIT Answer Register

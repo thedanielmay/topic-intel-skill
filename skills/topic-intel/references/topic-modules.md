@@ -147,7 +147,7 @@ At Phase S2, invoke the `literature-review` skill to conduct the systematic sear
 - PRISMA flow diagram generation (auditability artifact for Full Investigations)
 - Study quality assessment: Cochrane Risk of Bias (RCTs), Newcastle-Ottawa Scale (observational), CASP (qualitative)
 
-After the `literature-review` skill returns its findings, continue with S3 (citation filtering) and S4 (researcher mapping) in this skill. The saturation rule in `~/.claude/skills/shared/references/INTELLIGENCE-STANDARDS.md` Section 5 applies throughout.
+After the `literature-review` skill returns its findings, continue with S3 (citation filtering) and S4 (researcher mapping) in this skill. The saturation rule in `references/INTELLIGENCE-STANDARDS.md` Section 5 applies throughout.
 
 **Fallback (if `literature-review` not installed):** Use the existing S2 guidance directly: Semantic Scholar API + CrossRef API + arXiv API as documented in `topic-sources.md` Module SCI section.
 
