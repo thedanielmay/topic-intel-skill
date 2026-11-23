@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.2.0 - 2026-11-23
+
+- Moved the seven topic type modules and the multi-module chaining protocol into references/topic-modules.md.
+- Moved the Phase 11 synthesis and expert review procedure into references/topic-synthesis.md.
+- Cut the SKILL.md body below 500 lines and added one-line pointers to the new reference files.
+
 ## 2.1.3 - 2026-11-23
 
 - Adds the marketplace icon approved by Daniel (thedanielmay/agent-tools#2).
