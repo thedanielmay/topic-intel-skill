@@ -3,7 +3,7 @@ name: topic-intel
 description: "Deep, multi-source intelligence research on any non-company topic. Use this skill whenever the user wants to research a market, industry, policy, regulation, standard, technology category, geographic community, trend, movement, academic field, or public figure. Triggers include: 'research [topic]', 'deep dive on [topic]', 'brief me on [topic]', 'what do we know about [topic]', 'landscape of [topic]', 'state of [topic]', 'market analysis of [topic]', 'intelligence on [topic]', 'look into [topic]', 'topic-intel: [topic]', or any request to understand a non-company subject in depth. Also triggers on: market research requests, policy analysis requests, regulatory landscape requests, technology comparison requests, community ecosystem mapping, trend analysis, and public figure background research. Do NOT use for research on a specific named company or organisation — use company-intel instead. When the subject could be either a company or a topic, show the disambiguation prompt."
 license: MIT
 metadata:
-  version: "2.4.0"
+  version: "2.5.0"
 ---
 
 # Topic Intelligence Research
@@ -40,16 +40,17 @@ If ANY are missing, say:
 > Install them using either method below, then restart your session:
 >
 > **`fact-check-workflow`**
-> - `npx skills add anthropics/claude-plugins-official@fact-check-workflow`
+> - `npx skills add jamditis/claude-skills-journalism@fact-check-workflow` (third-party repo)
 >
 > **`literature-review`**
-> - `npx skills add anthropics/claude-plugins-official@literature-review`
+> - `npx skills add eyadsibai/ltk@literature-review` (third-party repo)
 >
 > **`document-skills:pdf`**
-> - `npx skills add anthropics/claude-plugins-official@document-skills`
+> - `npx skills add anthropics/skills@pdf`
+> - In Claude Code: `/plugin marketplace add anthropics/skills`, then `/plugin install document-skills@anthropic-agent-skills`
 >
 > **`data-visualization`**
-> - `npx skills add anthropics/claude-plugins-official@data-visualization`
+> - `npx skills add anthropics/knowledge-work-plugins@data-visualization`
 >
 > **`expert-panel`**
 > - `npx skills add thedanielmay/expert-panel-skill`
@@ -309,7 +310,7 @@ See `references/INTELLIGENCE-STANDARDS.md` Section 15 for the standard tool chec
 
 ## Confidence Rating System
 
-See `references/INTELLIGENCE-STANDARDS.md` Section 4 for the full confidence rating system and source independence rule. Apply ★★★/★★/★/⚠ ratings to every piece of information recorded.
+See `references/INTELLIGENCE-STANDARDS.md` Section 4 for the full grading system and source independence rule. Apply two grades to every piece of information recorded: source reliability A to F and information credibility 1 to 6, written together (for example B2). Keep the ⚠ flag for claims contradicted by another source.
 
 **Source independence matters.** Two sources citing the same original report = one source.
 
@@ -329,7 +330,7 @@ Run phases in waves to maximise efficiency:
 - Include the confirmed scoping document, current KIT status, and research log in every agent briefing
 - Use Explore agents for Waves 2-3 (source discovery), general-purpose agents for Waves 4-5 (analysis and synthesis)
 - Apply tier effort caps: Tier 1 = Layer 2 max; Tier 2 = Layer 3 max; Tier 3 = Layer 3 by default, with Layer 4 only after the user approves that source
-- After each agent completes, it writes a structured block to `research-log.md` (see `topic-agent-dispatch.md`)
+- After each agent completes, it returns a structured research-log block in its final message. The orchestrator appends the block to `research-log.md` (see `topic-agent-dispatch.md`)
 - Sequential execution remains valid — dispatch is a performance optimisation, not a requirement
 
 See `topic-agent-dispatch.md` for full guidance: agent briefing templates, per-wave notes, handoff format, and timeout fallback. See `superpowers:dispatching-parallel-agents` skill for Claude Code implementation.

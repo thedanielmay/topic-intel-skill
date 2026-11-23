@@ -35,9 +35,9 @@ Apply whenever two credible sources contradict each other, or when there is genu
 
 Apply to all key findings to assess source independence and confidence.
 
-| Claim | Source 1 | Source 2 | Source 3 | Independent? | Confidence |
+| Claim | Source 1 | Source 2 | Source 3 | Independent? | Grade |
 |---|---|---|---|---|---|
-| [claim] | [source, type] | [source, type] | [source, type] | Yes/No/Partial | ★★★/★★/★ |
+| [claim] | [source, type] | [source, type] | [source, type] | Yes/No/Partial | A1/B2/C3 |
 
 **Source type codes:**
 - PR = Primary (official document, legislation, audited data)
@@ -56,9 +56,9 @@ Apply to any synthesis document before finalising.
 Check:
 1. Do all quantitative claims in the document use consistent figures? (No two sections citing different revenue figures for the same organisation/market)
 2. Do temporal references cohere? (No document that says something is "current" when it cites a 2019 source)
-3. Are all confidence ratings applied consistently? (No ★★★ rating on a LinkedIn self-reported claim)
+3. Are all grades applied consistently? (No grade above C for reliability on a LinkedIn self-reported claim)
 4. Does the executive summary accurately reflect the findings in the body? (No claims in the summary that are not supported in the body)
-5. Are all gaps acknowledged? (No finding presented as certain when the underlying source is ★)
+5. Are all gaps acknowledged? (No finding presented as certain when the underlying source is graded C or lower)
 
 ---
 
@@ -104,7 +104,7 @@ For each revenue model identified in the market:
 
 | Model | Revenue source | Customer dependency risk | Margin profile | Scalability | Replicability | Overall rating |
 |---|---|---|---|---|---|---|
-| [model] | [who pays] | [low/med/high] | [high/med/low] | [high/med/low] | [easy/hard] | [★★★/★★/★] |
+| [model] | [who pays] | [low/med/high] | [high/med/low] | [high/med/low] | [easy/hard] | [A/B/C] |
 
 #### Market Opportunity Matrix
 
@@ -122,28 +122,28 @@ Apply to confirm every factual claim is sourced from the highest available autho
 
 ```
         ┌─────────────────────────────┐
-        │    Primary legislation      │ ★★★
+        │    Primary legislation      │ A
         │   (Acts of Parliament)      │
         ├─────────────────────────────┤
-        │  Subordinate legislation    │ ★★★
+        │  Subordinate legislation    │ A
         │ (Regulations, Instruments)  │
         ├─────────────────────────────┤
-        │  Ministerial guidelines     │ ★★★
+        │  Ministerial guidelines     │ A
         │  and policy documents       │
         ├─────────────────────────────┤
-        │   Agency guidance /         │ ★★
+        │   Agency guidance /         │ B
         │   practice notes / FAQs     │
         ├─────────────────────────────┤
-        │  Independent commentary     │ ★★
+        │  Independent commentary     │ B
         │  (Productivity Commission,  │
         │   academic analysis)        │
         ├─────────────────────────────┤
-        │  Media / advocacy /         │ ★
+        │  Media / advocacy /         │ C
         │  self-reported              │
         └─────────────────────────────┘
 ```
 
-Claims citing only sources from the lower tiers must be flagged (★) and noted as requiring primary source confirmation.
+The letter is the source reliability grade from Section 4 of INTELLIGENCE-STANDARDS.md. Add the information credibility number when the claim is graded. Claims citing only sources from the lower tiers must be graded C or lower and noted as requiring primary source confirmation.
 
 #### Compliance Risk Matrix
 
@@ -153,9 +153,9 @@ Claims citing only sources from the lower tiers must be flagged (★) and noted 
 
 #### Policy Change Scenario Analysis
 
-| Scenario | Probability | Trigger | Impact on us | Response |
+| Scenario | Likelihood | Trigger | Impact on us | Response |
 |---|---|---|---|---|
-| [e.g. "Policy strengthened"] | [High/Med/Low] | [what would cause it] | [positive/negative/neutral + detail] | [recommended response] |
+| [e.g. "Policy strengthened"] | [remote / unlikely / roughly even / likely / almost certain] | [what would cause it] | [positive/negative/neutral + detail] | [recommended response] |
 | [e.g. "Policy repealed"] | | | | |
 | [e.g. "No change"] | | | | |
 
@@ -167,21 +167,21 @@ Claims citing only sources from the lower tiers must be flagged (★) and noted 
 
 Apply to classify sources consistently:
 
-| Level | Type | Confidence | Examples |
+| Level | Type | Grade | Examples |
 |---|---|---|---|
-| 1 | Systematic review / meta-analysis | ★★★ | Cochrane review, PRISMA-compliant synthesis |
-| 2 | Randomised controlled trial | ★★★ | Peer-reviewed RCT |
-| 3 | Cohort / observational study | ★★ | Peer-reviewed longitudinal study |
-| 4 | Case study / case series | ★★ | Published case study |
-| 5 | Expert opinion / editorial | ★ | Expert commentary, opinion piece |
-| 6 | Grey literature / pre-print | ★ | Conference paper, working paper, arXiv |
+| 1 | Systematic review / meta-analysis | A1 | Cochrane review, PRISMA-compliant synthesis |
+| 2 | Randomised controlled trial | A2 | Peer-reviewed RCT |
+| 3 | Cohort / observational study | B2 | Peer-reviewed longitudinal study |
+| 4 | Case study / case series | B3 | Published case study |
+| 5 | Expert opinion / editorial | C4 | Expert commentary, opinion piece |
+| 6 | Grey literature / pre-print | C5 | Conference paper, working paper, arXiv |
 
-**Mapping to the standard three-star confidence system:**
-- Levels 1–2 (systematic reviews, RCTs) → ★★★
-- Levels 3–4 (cohort studies, case studies) → ★★
-- Levels 5–6 (expert opinion, grey literature, pre-prints) → ★
+**Mapping to the two-grade system:**
+- Levels 1 to 2 (systematic reviews, RCTs) map to A1 or A2
+- Levels 3 to 4 (cohort studies, case studies) map to B2 or B3
+- Levels 5 to 6 (expert opinion, grey literature, pre-prints) map to C4 or C5
 
-Apply this mapping when assigning confidence ratings in the KIT Answer Register and Triangulation Matrix so all outputs use a consistent rating system.
+Apply this mapping when assigning grades in the KIT Answer Register and Triangulation Matrix so all outputs use the same grading system. The two axes are defined in Section 4 of INTELLIGENCE-STANDARDS.md.
 
 #### Research Gap Matrix
 
@@ -267,11 +267,13 @@ Plot key actors on a 2x2:
 
 #### Scenario Analysis (3 scenarios)
 
-| Scenario | Probability | Key assumptions | Impact on [topic] | Impact on us | Time horizon |
+| Scenario | Likelihood | Key assumptions | Impact on [topic] | Impact on us | Time horizon |
 |---|---|---|---|---|---|
-| Bull case | [%] | [what must be true] | [positive developments] | [implication] | [1-3yr] |
-| Base case | [%] | [current trajectory] | [expected developments] | [implication] | [1-3yr] |
-| Bear case | [%] | [what must go wrong] | [negative developments] | [implication] | [1-3yr] |
+| Bull case | [word] | [what must be true] | [positive developments] | [implication] | [1-3yr] |
+| Base case | [word] | [current trajectory] | [expected developments] | [implication] | [1-3yr] |
+| Bear case | [word] | [what must go wrong] | [negative developments] | [implication] | [1-3yr] |
+
+Use one likelihood word per scenario: remote, unlikely, roughly even, likely, almost certain. Do not add a percentage because Flag 12 in INTELLIGENCE-STANDARDS.md removes invented probabilities.
 
 #### Adoption Curve Positioning
 

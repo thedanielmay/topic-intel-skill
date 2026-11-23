@@ -183,7 +183,7 @@ Policy consultation pages, retracted reports, and superseded guidance are freque
 1. Search the CDX API for the relevant domain and URL pattern
 2. Find URLs that previously returned 200 but now return 404
 3. Access the archived version: `https://web.archive.org/web/[timestamp]/[url]`
-4. Log the archived URL in `research-log.md` with: original URL, archive date, why it was removed (if known)
+4. Return the archived URL with: original URL, archive date, why it was removed (if known). The orchestrator logs it in `research-log.md`
 
 ### Snapshot diffing for regulatory language changes
 

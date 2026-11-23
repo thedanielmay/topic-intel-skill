@@ -274,7 +274,7 @@ After the `literature-review` skill returns its findings, continue with S3 (cita
 
 **Primary sources:** LinkedIn (publicly visible content only through Layers 1 to 3, or content the user pastes; not a Layer 4 target), organisational websites, media archives (filtered search), published works and interviews, Wikipedia as reference map only (not primary source), AEC political donations register (for public figures in political life), AustLII (court records if relevant - public record only). If a LinkedIn page requires a login, log it as a gap and ask the user to paste the content they want used.
 
-**Ethical boundaries:** Research covers only the person's PUBLIC role - career, public statements, professional record, institutional affiliations. Private life is out of scope. Privacy Act constraints apply throughout. Flag clearly if any source is self-reported (★ rating).
+**Ethical boundaries:** Research covers only the person's PUBLIC role - career, public statements, professional record, institutional affiliations. Private life is out of scope. Privacy Act constraints apply throughout. Flag clearly if any source is self-reported (grade C or lower).
 
 **Output format:** Biographical intelligence brief - career reconstruction, public positions on relevant topics, network map, professional reputation assessment, practical relevance to [context].
 

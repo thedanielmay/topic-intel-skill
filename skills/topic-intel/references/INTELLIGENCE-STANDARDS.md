@@ -59,7 +59,7 @@ KITs are the 2–5 questions the investigation must answer. They drive every pha
 ```
 KIT [N]: [question]
 Answer:      [direct answer — 2–5 sentences. Lead with the answer, not the caveats.]
-Confidence:  [★★★ / ★★ / ★]
+Grade:       [A1 / B2 / C3]
 Key sources: [2–3 most authoritative sources used]
 Gaps:        [what would improve confidence if found]
 ```
@@ -72,18 +72,45 @@ Save to: `[investigation-folder]/00-summary/kit-answers.md`
 
 ## 4. Confidence Rating System
 
-Apply to every piece of information recorded:
+Apply two separate grades to every piece of information recorded. Write them together as a two-character code such as B2. The letter rates the source. The number rates the information.
 
-| Rating | Meaning | Examples |
+### Source reliability (A to F)
+
+| Grade | Meaning | Examples |
 |---|---|---|
-| ★★★ | Official, audited, or primary source | Government statistics, audited financials, primary legislation, peer-reviewed systematic review, ASIC filing, court record |
-| ★★ | Credible independent source | Quality journalism, credible think-tank, industry body data with disclosed methodology, analyst report |
-| ★ | Informal or unverified | Organisation self-reported claims, social media posts, blog posts, advocacy, pre-prints, forum comments |
-| ⚠ | Contradicted by another source | Flag, note the contradiction, apply ACH |
+| A | Completely reliable | Government statistics, audited financials, primary legislation, court record, peer-reviewed systematic review |
+| B | Usually reliable | Quality journalism, credible think-tank, industry body data with disclosed methodology, analyst report |
+| C | Fairly reliable | Organisation self-reported claims, pre-prints, named forum comments |
+| D | Not usually reliable | Anonymous claims, unverified social media posts, blog posts |
+| E | Unreliable | Source known to publish false or fabricated material |
+| F | Cannot be judged | Source provenance unknown |
+
+### Information credibility (1 to 6)
+
+| Grade | Meaning |
+|---|---|
+| 1 | Confirmed by other independent sources |
+| 2 | Probably true |
+| 3 | Possibly true |
+| 4 | Doubtful |
+| 5 | Improbable |
+| 6 | Cannot be judged |
+
+**Citation format:** Write reliability first, then credibility. B2 means a usually reliable source reporting information that is probably true. Keep ⚠ as an extra flag when another source contradicts the claim, then apply ACH.
+
+**Funder check:** For analyst reports, industry reports, think-tank reports and vendor reports, record who paid for the work and who published it. Record any conflict of interest. A report funded by an interested party cannot be graded above C for reliability on that topic. Note the funding in the source entry and in the Triangulation Matrix.
+
+**Old star reports:** Earlier versions of this skill used three stars for confidence. Use this table to read them. The star measured source type, which is now the reliability letter. The credibility number was not recorded, so treat it as 6 (cannot be judged) unless other independent sources confirm the claim.
+
+| Old star | Reliability grade | Old meaning |
+|---|---|---|
+| ★★★ | A | Official, audited, or primary source |
+| ★★ | B | Credible independent source |
+| ★ | C | Informal or unverified |
 
 **Source independence rule:** Two sources that both cite the same original document = one source, not two. Mark as Secondary Dependent (SD) in the Triangulation Matrix.
 
-**SCI module note:** The six-level academic Evidence Hierarchy maps to the three-star system as follows: Levels 1–2 (systematic reviews, RCTs) → ★★★; Levels 3–4 (cohort/observational studies, case studies) → ★★; Levels 5–6 (expert opinion, grey literature, pre-prints) → ★.
+**SCI module note:** The six-level academic Evidence Hierarchy maps to the two grades as follows. Levels 1 to 2 (systematic reviews, RCTs) map to A1 or A2. Levels 3 to 4 (cohort/observational studies, case studies) map to B2 or B3. Levels 5 to 6 (expert opinion, grey literature, pre-prints) map to C4 or C5.
 
 ---
 
@@ -130,9 +157,9 @@ This is not optional. It keeps the user informed and serves as a forcing functio
 
 Apply to all key findings before finalising synthesis. For each major claim:
 
-| Claim | Source 1 | Source 2 | Source 3 | Independent? | Confidence |
+| Claim | Source 1 | Source 2 | Source 3 | Independent? | Grade |
 |---|---|---|---|---|---|
-| [claim] | [source, type] | [source, type] | [source, type] | Yes/No/Partial | ★★★/★★/★ |
+| [claim] | [source, type] | [source, type] | [source, type] | Yes/No/Partial | A1/B2/C3 |
 
 **Source type codes:**
 - **PR** = Primary (official document, legislation, audited data, court record)
@@ -156,9 +183,9 @@ Numbers are the highest hallucination-risk element in synthesis. Before finalisi
 
 **Add to the Triangulation Matrix:** A `Numeric verified?` column:
 
-| Claim | Source 1 | Source 2 | Source 3 | Independent? | Confidence | Numeric verified? |
+| Claim | Source 1 | Source 2 | Source 3 | Independent? | Grade | Numeric verified? |
 |---|---|---|---|---|---|---|
-| [claim] | [source, type] | [source, type] | [source, type] | Yes/No/Partial | ★★★/★★/★ | Y / N / ⚠ / N/A |
+| [claim] | [source, type] | [source, type] | [source, type] | Yes/No/Partial | A1/B2/C3 | Y / N / ⚠ / N/A |
 
 Any `⚠` in the Numeric verified column must be resolved before PDF generation.
 
@@ -177,9 +204,9 @@ Before drafting any synthesis prose, produce a flat claim-to-source register in 
 **Subject:** [entity or topic]
 **Date:** [YYYY-MM-DD]
 
-| Claim (max 20 words) | Source file | Passage (quote or paraphrase ≤15 words) | Confidence |
+| Claim (max 20 words) | Source file | Passage (quote or paraphrase ≤15 words) | Grade |
 |---|---|---|---|
-| [claim] | [phase-file.md] | [exact text or short paraphrase] | ★★★/★★/★ |
+| [claim] | [phase-file.md] | [exact text or short paraphrase] | A1/B2/C3 |
 ```
 
 **Rule:** Every factual claim in synthesis prose must appear in this register before the prose is written. If a claim cannot be placed in the register (no traceable source file), it must be written as a gap statement or uncertainty — not as a fact. Prose is written from this register, not from memory of prior phases.
@@ -210,7 +237,7 @@ After Expert QA and before deliverable generation, re-read the full draft synthe
 After deliverables are drafted and before PDF generation, run the Numeric Verification Protocol (Section 7). Extract every numeric token from all deliverable files. For each:
 - Trace to source file — exact match required
 - Any `[NUMERIC GAP — not sourced]` flags must be resolved before PDF generation
-- Numbers sourced only from the subject's own materials (SR source type) must be marked ★ and hedged: "per [subject]'s own reporting"
+- Numbers sourced only from the subject's own materials (SR source type) must be graded C or lower and hedged: "per [subject]'s own reporting"
 
 8. **Information Gaps Register** — list every significant gap with KIT impact and resolution path
 9. **Monitoring Plan** — alerts, feeds, trigger events, refresh cadence
@@ -385,7 +412,7 @@ This research reflects the state of intelligence as of [date]. The following ele
 
 ## 13. Research Log Format
 
-Append to `research-log.md` throughout every investigation:
+Append to `research-log.md` throughout every investigation. When parallel agents are used, each agent returns its block in its final message and the orchestrator appends the returned blocks. Agents do not write this file directly.
 
 ```markdown
 ## Session [YYYY-MM-DD]
@@ -492,7 +519,7 @@ Apply this checklist during the Fabrication Detection Pass (Phase 11 Step 6b). A
 |---|---|---|
 | 1 | **Orphaned number** — a digit, percentage, currency amount, or date appears in synthesis with no entry in synthesis-source-register.md | Trace to source file or rewrite as gap statement |
 | 2 | **Precision inflation** — synthesis is more specific than its source (source says "approximately $200M", synthesis says "$214M") | Revert to source's exact language |
-| 3 | **[MKT] Market size without methodology** — a market size figure appears with no stated data source or methodology | Add source and methodology note, or downrate to ★ and flag as estimate |
+| 3 | **[MKT] Market size without methodology** — a market size figure appears with no stated data source or methodology | Add source and methodology note, or downgrade to C or lower and flag as estimate |
 | 4 | **[SCI] Citation without identifier** — an academic reference appears as "Author et al. (year)" with no DOI, URL, or Semantic Scholar ID from the research log | Remove or replace with a traceable citation |
 | 5 | **[POL] Paraphrased provision** — a statutory obligation, threshold, or penalty is described in indirect speech without a section number | Replace with verbatim quote + section number, or flag as unverified |
 | 6 | **Unsourced comparator** — a comparative claim ("larger than", "faster than", "below average") appears without a source for the comparison point | Source the comparator or rewrite as directional ("appears larger, though no benchmark data was found") |
@@ -501,7 +528,7 @@ Apply this checklist during the Fabrication Detection Pass (Phase 11 Step 6b). A
 | 9 | **[Multi-module] Untagged cross-module claim** — a finding from a secondary module appears in primary synthesis without a `[Source: module-X-synthesis.md]` tag | Add source tag or re-verify against original research-phase file |
 | 10 | **[TRD] Unanchored start date** — a trend is described as beginning in a specific year with no document source for that date | Source the date or rewrite as "the trend became visible around [period]" |
 | 11 | **Summary-only claim** — the executive summary contains a specific claim not found in any body section or KIT Answer Register | Trace to source or remove from summary |
-| 12 | **Invented probability** — a forward-looking scenario contains a specific probability estimate ("70% likely") with no stated basis | Remove the figure; express as qualitative likelihood ("appears more likely than not") |
+| 12 | **Invented probability** — a forward-looking scenario contains a specific probability estimate ("70% likely") with no stated basis | Remove the figure. Express the likelihood with one word: remote, unlikely, roughly even, likely, almost certain |
 
 **How to run this checklist:**
 1. Read the draft synthesis from start to finish as a sceptic, not as the author
