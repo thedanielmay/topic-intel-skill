@@ -1,5 +1,15 @@
 # Changelog
 
+## 2.4.0 - 2026-11-23
+
+- Layer 4 (Playwright) is opt-in. Name the source and why before running it, and run it only after the user says yes for that source.
+- Log a gap with the reason when the user says no or Playwright is not installed, and skip Layer 4 when Playwright is missing.
+- Removed the headed login capture and headless session reuse template, and every instruction to save or load a browser session.
+- Removed browser evasion and its install check. Layer 4 now runs as a normal browser that identifies as automation.
+- LinkedIn is not a Layer 4 target. Use only public content from Layers 1 to 3, or content the user pastes.
+- Replaced the hard-coded Python path with one detection step: `python3 -c "import playwright"`. No machine-specific paths remain.
+- The access rule now respects each site's terms and robots rules.
+
 ## 2.3.0 - 2026-11-23
 
 - Bundles the three shared reference files (intelligence standards, web access layers, layer 4 Playwright protocol), so the skill works without files outside the repo.

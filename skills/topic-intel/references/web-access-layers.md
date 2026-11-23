@@ -147,7 +147,7 @@ Parse the result with Bash or Python as needed.
 
 | Site | Issue | Layer 3 fix |
 |------|-------|-------------|
-| LinkedIn company/profile pages | Bot detection + login required | `render_js=true` |
+| LinkedIn company/profile pages | Bot detection | `render_js=true` |
 | Facebook / Meta Ad Library | Blocked at network level | `render_js=true` |
 | Instagram | JS-rendered, login required | `render_js=true` |
 | Glassdoor | Bot detection | `render_js=true` |
@@ -159,19 +159,20 @@ Parse the result with Bash or Python as needed.
 
 ## Layer 4 — Playwright for Interactive Flows
 
-Only use Playwright when you need to:
+Layer 4 is opt in. It is not an automatic fallback. Before any Layer 4 attempt, tell the user the source and the reason. Run the browser only after the user says yes for that source. On a no, or when Playwright is not installed, log the source as a gap with the reason. Do not use Layer 4 on a source behind a login.
+
+Use Playwright only when you need to:
 - Navigate multi-page flows (e.g., multi-step search forms)
 - Fill and submit forms programmatically
 - Handle dynamic content that changes based on user interaction
 - Scrape content that only loads after user events (scroll, click, hover)
-- Bypass sites that detect ScrapingBee but not a real browser
 
 **Full Layer 4 protocol:** Read `references/layer-4-playwright-protocol.md`.
 
 ### When to use Playwright vs Layer 3
 
 - **Use Layer 3** when a page loads all its content on initial render (even if JS-rendered) — scraping services handle this well and are faster
-- **Use Layer 4** when content requires user interaction to load (infinite scroll, button clicks, form submission, login flows)
+- **Use Layer 4** when content requires user interaction to load (infinite scroll, button clicks, form submission on public pages), and only after the user says yes
 
 ---
 
@@ -195,7 +196,9 @@ For each URL/source you need to access:
    → NO: Log the URL as a manual review item. Prompt the user.
 
 4. Does the data require interactive navigation (forms, clicks, scroll)?
-   → YES: Use Layer 4 (Playwright) if available.
+   → YES: Name the source and the reason to the user. Use Layer 4 (Playwright)
+          only after the user says yes for that source. If no, or Playwright is
+          not installed, log the gap with the reason.
    → NO: This is a Layer 3 problem, not Layer 4.
 
 5. None of the above worked?

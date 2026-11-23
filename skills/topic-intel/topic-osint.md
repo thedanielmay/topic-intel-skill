@@ -137,6 +137,8 @@ https://www.google.com/search?q=[query]&tbm=isch&tbs=isz:l
 https://www.google.com/search?q="[Full Name]"+site:linkedin.com&tbm=isch&tbs=itp:face
 ```
 
+**Access note:** Use only LinkedIn content that is publicly visible without login through Layers 1 to 3, or content the user pastes. LinkedIn is not a Layer 4 target. If a page requires a login, log it as a gap and ask the user to paste the content they want used.
+
 ### Query iteration strategy
 
 1. **Start broad:** `"[topic]"` — establish baseline coverage, assess result volume and source diversity

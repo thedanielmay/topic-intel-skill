@@ -300,7 +300,7 @@ Events that should prompt an immediate refresh of this intelligence:
 | Limitation | Sections affected | Impact on confidence |
 |---|---|---|
 | [e.g. "IBISWorld market data paywalled — used ABS as proxy"] | [section] | [medium — ABS less granular] |
-| [e.g. "LinkedIn data obtained without authentication — career histories incomplete"] | [section] | [low — confirmed via other sources] |
+| [e.g. "Public LinkedIn data only, so career histories incomplete"] | [section] | [low, confirmed via other sources] |
 
 ---
 
