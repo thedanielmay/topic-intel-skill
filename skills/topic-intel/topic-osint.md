@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Open-source intelligence techniques scoped specifically to topic research. Complements the four-layer web access architecture in `~/.claude/skills/shared/references/web-access-layers.md`. Does NOT duplicate entity-specific techniques from `company-intel` (DNS, WHOIS, SSL, cloud footprint, stock photo detection) — those are irrelevant to topic research.
+Open-source intelligence techniques scoped specifically to topic research. Complements the four-layer web access architecture in `references/web-access-layers.md`. Does NOT duplicate entity-specific techniques from `company-intel` (DNS, WHOIS, SSL, cloud footprint, stock photo detection) — those are irrelevant to topic research.
 
 Read relevant sections when the investigation reaches the source type they cover.
 

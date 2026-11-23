@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.3.0 - 2026-11-23
+
+- Bundles the three shared reference files (intelligence standards, web access layers, layer 4 Playwright protocol), so the skill works without files outside the repo.
+
 ## 2.2.0 - 2026-11-23
 
 - Moved the seven topic type modules and the multi-module chaining protocol into references/topic-modules.md.

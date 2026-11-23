@@ -471,4 +471,4 @@ Control web access layer usage based on investigation tier. Apply these caps whe
 
 **When Layer 3 is not configured:** Fall back to Layer 2 for Tier 2 investigations. Do not block the investigation — log the inaccessible source in `inaccessible-sources.md` and proceed.
 
-**When Layer 4 is available:** Always attempt Layer 4 before declaring a source inaccessible in Tier 3 investigations. See `~/.claude/skills/shared/references/layer-4-playwright-protocol.md` for the full execution protocol.
+**When Layer 4 is available:** Always attempt Layer 4 before declaring a source inaccessible in Tier 3 investigations. See `references/layer-4-playwright-protocol.md` for the full execution protocol.
