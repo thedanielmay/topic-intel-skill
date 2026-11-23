@@ -1,9 +1,9 @@
 ---
 name: topic-intel
-description: "Deep, multi-source intelligence research on any non-company topic. Use this skill whenever the user wants to research a market, industry, policy, regulation, standard, technology category, geographic community, trend, movement, academic field, or public figure. Triggers include: 'research [topic]', 'deep dive on [topic]', 'brief me on [topic]', 'what do we know about [topic]', 'landscape of [topic]', 'state of [topic]', 'market analysis of [topic]', 'intelligence on [topic]', 'look into [topic]', 'topic-intel: [topic]', or any request to understand a non-company subject in depth. Also triggers on: market research requests, policy analysis requests, regulatory landscape requests, technology comparison requests, community ecosystem mapping, trend analysis, and public figure background research. Do NOT use for research on a specific named company or organisation — use company-intel instead. When the subject could be either a company or a topic, show the disambiguation prompt."
+description: "Deep, multi-source intelligence research on a named non-company topic: a market, industry, policy or regulation, technology, trend, community, academic field or public figure. Use this skill when the user asks for research, due diligence, a dossier, a deep dive, a brief or intelligence on a named subject, or names this skill. Do NOT use for research on a specific named company or organisation. Use company-intel instead. If the subject is ambiguous between a company and a topic, show the disambiguation prompt."
 license: MIT
 metadata:
-  version: "2.5.0"
+  version: "2.6.0"
 ---
 
 # Topic Intelligence Research
@@ -206,19 +206,21 @@ If type is ambiguous between two codes, ask the user to confirm before proceedin
 
 ### Step 2: Offer investigation depth
 
+If the user named a depth in the request, use that depth and skip this step.
+
 ```
 INVESTIGATION DEPTH
 ───────────────────
-1. Quick Scan          — Core sources, key facts, recent developments. ~30 min.
-                         Produces: 1-page briefing note.
-2. Standard            — All of Quick Scan + stakeholder map, data sources,
-                         analysis, synthesis. ~2 hrs.
-                         Produces: Multi-section dossier + executive summary.
-3. Full Investigation  — (default) Everything. All sources, cross-reference,
-                         expert QA review, PDF synthesis report. ~4–6 hrs.
-                         Produces: Complete dossier + PDF.
+1. Quick Scan:          Core sources, key facts, recent developments. ~30 min.
+                        Produces: 1-page briefing note.
+2. Standard:            All of Quick Scan + stakeholder map, data sources,
+                        analysis, synthesis. ~2 hrs.
+                        Produces: Multi-section dossier + executive summary.
+3. Full Investigation:  Everything. All sources, cross-reference, expert QA
+                        review, PDF synthesis report. ~4 to 6 hrs.
+                        Produces: Complete dossier + PDF.
 
-Which depth? (1–3, default: 3)
+Which depth? (1 to 3; suggested: 1 Quick Scan)
 ```
 
 ### Step 3: KIT elicitation
