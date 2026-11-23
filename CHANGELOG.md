@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.5.0 - 2026-11-23
+
+- Fixed the companion skill install commands. Each command now names the repo that holds the skill, and the third-party repos are labelled. GitHub issues #10 and #9.
+- Agents now return their research-log block in the final message. The orchestrator alone appends the blocks to `research-log.md`, so Explore agents no longer need to write files.
+- Replaced the single star rating with two grades: source reliability A to F and information credibility 1 to 6, written together such as B2. A mapping table lets old three-star reports still be read.
+- Added a funder check. Record who paid for and published analyst, industry, think-tank and vendor reports, plus any conflict of interest. A report funded by an interested party cannot grade above C for reliability on that topic.
+- Scenario tables now use qualitative likelihood words (remote, unlikely, roughly even, likely, almost certain) instead of percentages. Flag 12 uses the same words.
+
 ## 2.4.0 - 2026-11-23
 
 - Layer 4 (Playwright) is opt-in. Name the source and why before running it, and run it only after the user says yes for that source.

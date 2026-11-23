@@ -18,7 +18,7 @@ Every agent dispatched from a topic-intel investigation must receive all of the 
 2. **KIT list with current status** — each KIT labelled: answered / partial / unanswered
 3. **Research log excerpt** — sources accessed so far (prevents duplication of effort)
 4. **Specific task for this agent** — named source targets, what to look for, what format to return
-5. **Output instruction** — what to write back and in what format (see Handoff Format below)
+5. **Output instruction** — what to return in the final message and in what format (see Handoff Format below)
 
 Do not dispatch agents without the scoping document and research log — agents without context will duplicate work and miss KIT-specific angles.
 
@@ -26,7 +26,7 @@ Do not dispatch agents without the scoping document and research log — agents 
 
 ## Handoff Format
 
-Each agent writes a structured block to `research-log.md` when complete:
+Each agent returns its research-log block in its final message. The orchestrator alone appends the returned blocks to `research-log.md`. Agents do not write that file, and Explore agents cannot write files:
 
 ```markdown
 ## Agent task: [brief description] — [YYYY-MM-DD HH:MM]
@@ -53,7 +53,7 @@ Wave 1 must complete before any agents are dispatched. It confirms the topic, es
 - Stakeholder/actor mapping — one agent
 - Data and statistics search — one agent
 
-**Recommended agent type:** Explore (read-only source discovery)
+**Recommended agent type:** Explore (read-only source discovery). Each agent returns the research-log block in its final message. The orchestrator appends the block to `research-log.md`.
 
 **Per-agent brief structure:**
 - Agent A (KIT 1 primary sources): "Search the following sources for evidence relevant to KIT 1: [source list]. Record every source accessed, confidence rating, and key finding."
@@ -70,7 +70,7 @@ Wave 1 must complete before any agents are dispatched. It confirms the topic, es
 - Policy/regulatory/technical depth — one agent (module-specific)
 - Cross-reference — one agent
 
-**Recommended agent type:** Explore
+**Recommended agent type:** Explore. Each agent returns the research-log block in its final message. The orchestrator appends the block to `research-log.md`.
 
 **Per-agent brief structure:**
 - Agent E (media/community): "Search news archives, trade press, and community sources for coverage of [topic] from [date range]. Focus on: [specific angles from KIT list]."
@@ -83,7 +83,7 @@ Wave 1 must complete before any agents are dispatched. It confirms the topic, es
 - Analytical framework application — one agent per major framework required by the module
 - Synthesis drafts — one agent per major deliverable section
 
-**Recommended agent type:** General-purpose (analysis and writing)
+**Recommended agent type:** General-purpose (analysis and writing). Each agent returns the research-log block in its final message. The orchestrator appends the block to `research-log.md`.
 
 **Per-agent brief structure:**
 - Agent H (framework): "Apply [framework name] to the following evidence set. Template: [paste relevant framework from topic-analytical-frameworks.md]. Evidence: [paste relevant research log sections]."
@@ -97,7 +97,7 @@ Wave 1 must complete before any agents are dispatched. It confirms the topic, es
 
 **Sequential gate:** Expert QA (Mode 3) must complete before PDF generation. Expert `[QA FLAG]` annotations must be resolved before invoking `document-skills:pdf`.
 
-**Recommended agent type:** General-purpose
+**Recommended agent type:** General-purpose. Each agent returns the research-log block in its final message. The orchestrator appends the block to `research-log.md`.
 
 **Per-agent brief structure:**
 - Agent J (Expert QA — Expert 1): "Review the attached synthesis draft as [Expert Name, role]. Identify gaps, weak analysis, or missing intelligence in your domain. Flag issues as [QA FLAG: description]. Template: [paste expert profile from topic-expert-panels.md]."
@@ -107,7 +107,7 @@ Wave 1 must complete before any agents are dispatched. It confirms the topic, es
 
 ## Timeout and Fallback
 
-- **Standard research agents (Waves 2-3):** Proceed after reasonable wait. Log incomplete tasks in research log with note: "Agent timed out — [task] incomplete."
+- **Standard research agents (Waves 2-3):** Proceed after a reasonable wait. Each agent returns a timeout note in its final message: "Agent timed out: [task] incomplete." The orchestrator appends the note to `research-log.md`.
 - **Analysis agents (Wave 4):** If an agent does not return, run that framework sequentially in the main session.
 - **QA agents (Wave 5):** Do not skip QA. If an agent times out, run the expert review sequentially using the persona from `topic-expert-panels.md`.
 

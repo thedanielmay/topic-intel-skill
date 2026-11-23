@@ -29,7 +29,7 @@ curl "https://web.archive.org/web/{timestamp}/{url}"
 - WebFetch: `https://trends.google.com/trends/explore?q={encoded_topic}&geo=AU`
 - Note: JS-rendered. Use Layers 1 to 3 first. Ask the user before using Layer 4 for this source.
 
-**Wikipedia** — Use as a reference MAP to primary sources, not as a primary source (★ rating only).
+**Wikipedia** — Use as a reference MAP to primary sources, not as a primary source (grade C or lower).
 
 ---
 
@@ -379,7 +379,7 @@ curl "https://api.github.com/repos/{owner}/{repo}"
 
 **LinkedIn** — A source for career history and role. Use only what is publicly visible without login through Layers 1 to 3, or what the user pastes. LinkedIn is not a Layer 4 target. If a page sits behind a login, log it as a gap and ask the user to paste the content they want used.
 
-**Organisation websites** — Current role confirmation (★★ if independently published)
+**Organisation websites** — Current role confirmation (B2 if independently published)
 
 **Media archives** — Statements, interviews, journalism
 ```
@@ -393,7 +393,7 @@ WebSearch: '"{person name}" site:[publication].com.au'
 **AustLII** (for public record — court appearances, tribunal decisions)
 - WebSearch: `site:austlii.edu.au "{person name}"`
 
-**Wikipedia** — Use as reference map only; follow citations to primary sources. Never cite Wikipedia as a primary source (★ at most).
+**Wikipedia** — Use as reference map only; follow citations to primary sources. Never cite Wikipedia as a primary source (grade C or lower).
 
 ---
 

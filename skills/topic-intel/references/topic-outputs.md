@@ -4,6 +4,8 @@
 
 This file contains all output templates for topic-intel investigations, organised by topic type. Every investigation produces the universal outputs (Section 1) plus the type-specific output for its module (Section 2).
 
+Grades use the two axes defined in Section 4 of INTELLIGENCE-STANDARDS.md: source reliability A to F and information credibility 1 to 6, written together as for example B2. Where a template lists A1/B2/C3, those are examples from the scale.
+
 ---
 
 ## Section 0 — Quick Scan Briefing Note (Tier 1 only)
@@ -23,7 +25,7 @@ Save to: `_topic-{slug}/quick-scan-briefing-YYYY-MM-DD.md`
 
 ## Key Findings
 
-1. [Finding — one sentence] [★★★ / ★★ / ★]
+1. [Finding in one sentence] [A1 / B2 / C3]
 2. [Finding] [confidence]
 3. [Finding] [confidence]
 4. [Finding] [confidence]
@@ -34,7 +36,7 @@ Save to: `_topic-{slug}/quick-scan-briefing-YYYY-MM-DD.md`
 ## KIT Answers
 
 **KIT 1: [question]**
-[2-sentence direct answer. Lead with the answer.] [★★★ / ★★ / ★]
+[2-sentence direct answer. Lead with the answer.] [A1 / B2 / C3]
 
 **KIT 2: [question]**
 [2-sentence direct answer.] [confidence]
@@ -78,7 +80,7 @@ Save to: `_topic-{slug}/quick-scan-briefing-YYYY-MM-DD.md`
 
 **Answer:** [Direct answer — 2-5 sentences. Lead with the answer, not the caveats.]
 
-**Confidence:** ★★★ / ★★ / ★
+**Grade:** A1 / B2 / C3
 
 **Key sources:**
 - [Source 1 — name, type, confidence]
@@ -166,7 +168,7 @@ These are the [N] findings most relevant to the stated purpose. Each is directly
 
 ## What We Found
 
-[3-5 paragraphs. Each paragraph addresses one KIT or one major theme. Lead with findings, not methodology. Every claim has a confidence indicator inline: ★★★, ★★, or ★.]
+[3-5 paragraphs. Each paragraph addresses one KIT or one major theme. Lead with findings, not methodology. Every claim has a grade inline: A1, B2, C3, and so on.]
 
 ---
 
@@ -186,7 +188,7 @@ These are the [N] findings most relevant to the stated purpose. Each is directly
 
 Overall confidence in this intelligence picture: [HIGH / MEDIUM / LOW]
 
-[2-3 sentences explaining why: e.g. "Three KITs answered at ★★★ from official government sources. KIT 4 relies on ★ sources only — treat with caution."]
+[2-3 sentences explaining why: e.g. "Three KITs answered at A1 from official government sources. KIT 4 relies on grade C sources only. Treat with caution."]
 ```
 
 ---
@@ -332,21 +334,21 @@ This research reflects the state of intelligence as of [date]. The following ele
 
 ## Market at a Glance
 
-| Dimension | Finding | Confidence |
+| Dimension | Finding | Grade |
 |---|---|---|
-| Market size (revenue) | [figure or range] | ★★★/★★/★ |
-| Market size (volume) | [figure or range] | ★★★/★★/★ |
-| Growth rate (CAGR) | [figure] | ★★★/★★/★ |
-| Number of operators | [figure or range] | ★★/★ |
-| Market concentration | [e.g. "fragmented — top 5 players hold <30%"] | ★★/★ |
+| Market size (revenue) | [figure or range] | A1/B2/C3 |
+| Market size (volume) | [figure or range] | A1/B2/C3 |
+| Growth rate (CAGR) | [figure] | A1/B2/C3 |
+| Number of operators | [figure or range] | B2/C3 |
+| Market concentration | [e.g. "fragmented — top 5 players hold <30%"] | B2/C3 |
 
 ---
 
 ## Key Players
 
-| Organisation | Type | Scale | Model | Positioning | Confidence |
+| Organisation | Type | Scale | Model | Positioning | Grade |
 |---|---|---|---|---|---|
-| [name] | [NFP/commercial/hybrid] | [revenue/size] | [how they make money] | [competitive position] | ★★/★ |
+| [name] | [NFP/commercial/hybrid] | [revenue/size] | [how they make money] | [competitive position] | B2/C3 |
 
 ---
 
@@ -384,9 +386,9 @@ This research reflects the state of intelligence as of [date]. The following ele
 
 ## Opportunity Map
 
-| Opportunity | Description | Addressable by whom | Timing | Confidence |
+| Opportunity | Description | Addressable by whom | Timing | Grade |
 |---|---|---|---|---|
-| [opportunity] | [detail] | [who is positioned] | [now/12mo/3yr] | ★★/★ |
+| [opportunity] | [detail] | [who is positioned] | [now/12mo/3yr] | B2/C3 |
 
 ---
 
@@ -409,14 +411,14 @@ This research reflects the state of intelligence as of [date]. The following ele
 
 ## Policy at a Glance
 
-| Element | Detail | Source |
+| Element | Detail | Grade |
 |---|---|---|
-| Full name | [official name] | ★★★ |
-| Administering body | [department/agency] | ★★★ |
-| Legislative basis | [Act/Regulation] | ★★★ |
-| Commenced | [date] | ★★★ |
-| Last amended | [date] | ★★★ |
-| Next review | [date or "not scheduled"] | ★★/★ |
+| Full name | [official name] | A1 |
+| Administering body | [department/agency] | A1 |
+| Legislative basis | [Act/Regulation] | A1 |
+| Commenced | [date] | A1 |
+| Last amended | [date] | A1 |
+| Next review | [date or "not scheduled"] | B2/C3 |
 
 ---
 
@@ -493,9 +495,9 @@ This research reflects the state of intelligence as of [date]. The following ele
 
 ## Key Findings with Confidence
 
-| Finding | Evidence basis | Confidence | Key citations |
+| Finding | Evidence basis | Grade | Key citations |
 |---|---|---|---|
-| [finding] | [study type, N] | ★★★/★★/★ | [author year] |
+| [finding] | [study type, N] | A1/B2/C3 | [author year] |
 
 ---
 
@@ -568,9 +570,9 @@ This research reflects the state of intelligence as of [date]. The following ele
 
 ## Vendor Comparison Matrix
 
-| Vendor | Product | Pricing model | Price range | Key capabilities | Target size | Australian users | Viability | Confidence |
+| Vendor | Product | Pricing model | Price range | Key capabilities | Target size | Australian users | Viability | Grade |
 |---|---|---|---|---|---|---|---|---|
-| [name] | [product name] | [SaaS/perpetual/usage] | [$X/month] | [top 3 capabilities] | [SMB/Enterprise] | [yes/no/unknown] | [high/medium/low] | ★★/★ |
+| [name] | [product name] | [SaaS/perpetual/usage] | [$X/month] | [top 3 capabilities] | [SMB/Enterprise] | [yes/no/unknown] | [high/medium/low] | B2/C3 |
 
 ---
 
@@ -634,20 +636,20 @@ This research reflects the state of intelligence as of [date]. The following ele
 
 ## Ecosystem at a Glance
 
-| Dimension | Finding | Confidence |
+| Dimension | Finding | Grade |
 |---|---|---|
-| Significant organisations identified | [N] | ★★/★ |
-| Active networks / intermediaries | [N] | ★★/★ |
-| Known funders | [N] | ★★/★ |
-| Identified gaps | [N] | ★/★★ |
+| Significant organisations identified | [N] | B2/C3 |
+| Active networks / intermediaries | [N] | B2/C3 |
+| Known funders | [N] | B2/C3 |
+| Identified gaps | [N] | C3/B2 |
 
 ---
 
 ## Anchor Institutions
 
-| Organisation | Type | Scale | Role in ecosystem | Key contact(s) | Confidence |
+| Organisation | Type | Scale | Role in ecosystem | Key contact(s) | Grade |
 |---|---|---|---|---|---|
-| [name] | [type] | [size/budget] | [what they do for the ecosystem] | [name, role] | ★★/★ |
+| [name] | [type] | [size/budget] | [what they do for the ecosystem] | [name, role] | B2/C3 |
 
 ---
 
@@ -700,12 +702,12 @@ This research reflects the state of intelligence as of [date]. The following ele
 
 ## Trend at a Glance
 
-| Dimension | Assessment | Confidence |
+| Dimension | Assessment | Grade |
 |---|---|---|
-| Trend strength | [Strong / Moderate / Weak / Reversing] | ★★/★ |
-| Durability | [Structural / Cyclical / Event-driven] | ★★/★ |
-| Maturity | [Emerging / Growing / Mature / Declining] | ★★/★ |
-| Regulatory trajectory | [Accelerating / Stable / Uncertain / Reversing] | ★★/★ |
+| Trend strength | [Strong / Moderate / Weak / Reversing] | B2/C3 |
+| Durability | [Structural / Cyclical / Event-driven] | B2/C3 |
+| Maturity | [Emerging / Growing / Mature / Declining] | B2/C3 |
+| Regulatory trajectory | [Accelerating / Stable / Uncertain / Reversing] | B2/C3 |
 
 ---
 
@@ -777,28 +779,28 @@ This research reflects the state of intelligence as of [date]. The following ele
 
 ## Identity Confirmation
 
-| Field | Detail | Source | Confidence |
+| Field | Detail | Source | Grade |
 |---|---|---|---|
-| Full name | [name] | [source] | ★★★ |
-| Current role | [title, organisation] | [source] | ★★/★ |
-| Location | [city, country] | [source] | ★★/★ |
-| LinkedIn | [URL if public] | Direct | ★★ |
+| Full name | [name] | [source] | A1 |
+| Current role | [title, organisation] | [source] | B2/C3 |
+| Location | [city, country] | [source] | B2/C3 |
+| LinkedIn | [URL if public] | Direct | B2 |
 
 ---
 
 ## Career Reconstruction
 
-| Period | Role | Organisation | Notes | Confidence |
+| Period | Role | Organisation | Notes | Grade |
 |---|---|---|---|---|
-| [dates] | [title] | [org] | [notable achievements/context] | ★★/★ |
+| [dates] | [title] | [org] | [notable achievements/context] | B2/C3 |
 
 ---
 
 ## Public Positions and Views
 
-| Topic | Position | Stated where | Date | Confidence |
+| Topic | Position | Stated where | Date | Grade |
 |---|---|---|---|---|
-| [topic relevant to KITs] | [stated position] | [speech/article/interview] | [date] | ★★/★ |
+| [topic relevant to KITs] | [stated position] | [speech/article/interview] | [date] | B2/C3 |
 
 ---
 

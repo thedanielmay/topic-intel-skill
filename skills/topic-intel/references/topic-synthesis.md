@@ -13,7 +13,7 @@ For each KIT, produce a structured answer:
 ```
 KIT [N]: [question]
 Answer: [direct answer - 2-5 sentences]
-Confidence: [★★★/★★/★]
+Grade: [A1/B2/C3]
 Key sources: [2-3 most authoritative sources used]
 Gaps: [what would improve confidence if found]
 ```
@@ -36,10 +36,10 @@ Position B: [who holds it, evidence, confidence]
 ACH verdict: [which is more consistent with all available evidence, or genuinely unresolvable]
 ```
 
-Do NOT rate one side ★★★ and move on. Surface the disagreement.
+Do NOT grade one side A1 and move on. Surface the disagreement.
 
 **Invoking `fact-check-workflow`:** When a contested claim is identified, invoke the `fact-check-workflow` skill for structured verification. The skill provides:
-- Evidence strength tiers (Strong / Medium / Weak) that map to this skill's confidence rating system (★★★ / ★★ / ★)
+- Evidence strength tiers (Strong / Medium / Weak) that map to this skill's two-grade system (A to F for reliability, 1 to 6 for credibility, written together as for example B2)
 - A Rating Decision Template that documents supporting evidence, contradicting evidence, missing context, and confidence level - use this as the structured record for each ACH verdict
 - A graduated 6-point rating scale (True / Mostly True / Half True / Mostly False / False / Pants on Fire) for use when the contested claim will be cited in a published deliverable
 - Right-of-response protocol: when the contested claim involves a living public figure (PRS module only), the `fact-check-workflow` source contact template applies
