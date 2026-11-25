@@ -3,7 +3,7 @@ name: topic-intel
 description: "Deep, multi-source intelligence research on a named non-company topic: a market, industry, policy or regulation, technology, trend, community, academic field or public figure. Use this skill when the user asks for research, due diligence, a dossier, a deep dive, a brief or intelligence on a named subject, or names this skill. Do NOT use for research on a specific named company or organisation. Use company-intel instead. If the subject is ambiguous between a company and a topic, show the disambiguation prompt."
 license: MIT
 metadata:
-  version: "2.6.0"
+  version: "2.6.1"
 ---
 
 # Topic Intelligence Research

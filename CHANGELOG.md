@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.6.1 - 2026-11-26
+
+- The check for a scraping service key prints only whether it is set. It never prints the key.
+
 ## 2.6.0 - 2026-11-23
 
 - Narrowed the skill description. It now starts on a request for research, due diligence, a dossier, a deep dive, a brief or intelligence on a named subject, or when the skill is named. Routing between company-intel and topic-intel stays.

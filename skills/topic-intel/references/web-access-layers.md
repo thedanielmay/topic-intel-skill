@@ -110,20 +110,20 @@ When WebFetch returns an error, is blocked, or returns empty/meaningless content
 
 ### Check if a scraping service is available
 
-Before attempting Layer 3, check whether the user has configured a scraping service:
+Before attempting Layer 3, check whether the user has configured a scraping service: Print only whether each key is set. Never print a key value.
 
 ```bash
 # Check for ScrapingBee
-echo $SCRAPINGBEE_API_KEY
+[ -n "${SCRAPINGBEE_API_KEY:-}" ] && echo "SCRAPINGBEE_API_KEY: set" || echo "SCRAPINGBEE_API_KEY: not set"
 
 # Check for BrightData
-echo $BRIGHTDATA_API_KEY
+[ -n "${BRIGHTDATA_API_KEY:-}" ] && echo "BRIGHTDATA_API_KEY: set" || echo "BRIGHTDATA_API_KEY: not set"
 
 # Check for ZenRows
-echo $ZENROWS_API_KEY
+[ -n "${ZENROWS_API_KEY:-}" ] && echo "ZENROWS_API_KEY: set" || echo "ZENROWS_API_KEY: not set"
 
 # Check for ScraperAPI
-echo $SCRAPERAPI_KEY
+[ -n "${SCRAPERAPI_KEY:-}" ] && echo "SCRAPERAPI_KEY: set" || echo "SCRAPERAPI_KEY: not set"
 ```
 
 If none are configured, skip Layer 3 and note the gap in `research-log.md` with the specific URLs that need scraping. Prompt the user:
