@@ -3,7 +3,7 @@ name: topic-intel
 description: "Deep, multi-source intelligence research on a named non-company topic: a market, industry, policy or regulation, technology, trend, community, academic field or public figure. Use this skill when the user asks for research, due diligence, a dossier, a deep dive, a brief or intelligence on a named subject, or names this skill. Do NOT use for research on a specific named company or organisation. Use company-intel instead. If the subject is ambiguous between a company and a topic, show the disambiguation prompt."
 license: MIT
 metadata:
-  version: "2.6.0"
+  version: "2.6.1"
 ---
 
 # Topic Intelligence Research
@@ -289,7 +289,7 @@ Read `references/web-access-layers.md` for the full protocol.
 **Summary:**
 - **Layer 1 — API-first:** Use public APIs where available (ABS, legislation.gov.au, Semantic Scholar, CrossRef, ACNC, etc.)
 - **Layer 2 — Search as router:** Use WebSearch to find the exact URL, then fetch only that URL. Never crawl blind.
-- **Layer 3 — Scraping service:** If WebFetch fails, route through ScrapingBee/ZenRows/BrightData if configured.
+- **Layer 3 — Scraping service:** If WebFetch fails, route through ScrapingBee/ZenRows/BrightData/ScraperAPI if configured.
 - **Layer 4 - Playwright:** Opt-in only. Run it for a named source after the user says yes for that source. It is not an automatic fallback.
 
 **Layer 4 opt-in rule:** If Layers 1, 2, and 3 have failed or are inapplicable, and the source has interactive or JS-rendered content, tell the user the exact source and why Layer 4 is needed. Run Layer 4 only after the user says yes for that source. If the user says no, or Playwright is not installed, log the source as a gap with that reason in `inaccessible-sources.md` and move on. Layer 4 runs as a normal browser that identifies as automation. LinkedIn is not a Layer 4 target. Use only LinkedIn content that is publicly visible without login through Layers 1 to 3, or content the user pastes. Read `references/layer-4-playwright-protocol.md` for the execution protocol and source-logging format.
@@ -300,6 +300,7 @@ python3 -c "import playwright" 2>/dev/null && echo "playwright ok" || echo "play
 echo "ScrapingBee: ${SCRAPINGBEE_API_KEY:+configured}"
 echo "BrightData:  ${BRIGHTDATA_API_KEY:+configured}"
 echo "ZenRows:     ${ZENROWS_API_KEY:+configured}"
+echo "ScraperAPI:  ${SCRAPERAPI_KEY:+configured}"
 ```
 
 Run the check and record the actual results in `research-log.md`. Note any tools that are unavailable before proceeding.

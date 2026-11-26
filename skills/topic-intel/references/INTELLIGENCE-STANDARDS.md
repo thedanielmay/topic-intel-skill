@@ -483,6 +483,7 @@ python3 -c "import playwright" 2>/dev/null || echo "Playwright is not installed"
 echo "ScrapingBee: ${SCRAPINGBEE_API_KEY:+configured}"
 echo "BrightData:  ${BRIGHTDATA_API_KEY:+configured}"
 echo "ZenRows:     ${ZENROWS_API_KEY:+configured}"
+echo "ScraperAPI:  ${SCRAPERAPI_KEY:+configured}"
 ```
 
 If the import fails, say Playwright is not installed and skip Layer 4. Log each affected source as a gap with that reason.

@@ -50,7 +50,7 @@ STEP 2 — Layer 2a: WebSearch to find the specific page URL.
    No useful URLs? → Try one alternate query. Still nothing? → STEP 3.
 
 STEP 3 — Layer 3: Is a scraping service configured?
-   CHECK: echo $SCRAPINGBEE_API_KEY $ZENROWS_API_KEY $BRIGHTDATA_API_KEY
+   CHECK: run the key check in references/web-access-layers.md. It prints only "set" or "not set"
    YES → Route through scraping service. Got useful data? DONE.
          Service also blocked? → STEP 4.
    NO  → Log URL. → STEP 4.
