@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.6.2 - 2026-11-26
+
+- The skill is now the topic mode of research-intel. This is the last release.
+
 ## 2.6.1 - 2026-11-26
 
 - The check for a scraping service key prints only whether it is set. It never prints the key.
