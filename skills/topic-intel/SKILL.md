@@ -300,6 +300,7 @@ python3 -c "import playwright" 2>/dev/null && echo "playwright ok" || echo "play
 echo "ScrapingBee: ${SCRAPINGBEE_API_KEY:+configured}"
 echo "BrightData:  ${BRIGHTDATA_API_KEY:+configured}"
 echo "ZenRows:     ${ZENROWS_API_KEY:+configured}"
+echo "ScraperAPI:  ${SCRAPERAPI_KEY:+configured}"
 ```
 
 Run the check and record the actual results in `research-log.md`. Note any tools that are unavailable before proceeding.

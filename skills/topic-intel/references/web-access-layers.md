@@ -110,7 +110,7 @@ When WebFetch returns an error, is blocked, or returns empty/meaningless content
 
 ### Check if a scraping service is available
 
-Before attempting Layer 3, check whether the user has configured a scraping service: Print only whether each key is set. Never print a key value.
+Before attempting Layer 3, check whether the user has configured a scraping service. Print only whether each key is set. Never print a key value.
 
 ```bash
 # Check for ScrapingBee
@@ -191,7 +191,7 @@ For each URL/source you need to access:
           If WebFetch times out or returns empty: Continue.
    → NO: Try a different search query. If still nothing: Continue.
 
-3. Is a scraping service configured ($SCRAPINGBEE_API_KEY etc.)?
+3. Is a scraping service configured (use the key check in Layer 3)?
    → YES: Use Layer 3. If succeeds: Done.
    → NO: Log the URL as a manual review item. Prompt the user.
 
