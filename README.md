@@ -1,5 +1,7 @@
 # topic-intel skill
 
+> **Moved.** This skill is now the topic mode of [research-intel](https://github.com/thedanielmay/research-intel-skill). This repository gets no more updates.
+
 Deep, multi-source intelligence research on any non-company topic.
 
 ## What it researches

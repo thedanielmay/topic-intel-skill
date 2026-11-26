@@ -1,12 +1,14 @@
 ---
 name: topic-intel
-description: "Deep, multi-source intelligence research on a named non-company topic: a market, industry, policy or regulation, technology, trend, community, academic field or public figure. Use this skill when the user asks for research, due diligence, a dossier, a deep dive, a brief or intelligence on a named subject, or names this skill. Do NOT use for research on a specific named company or organisation. Use company-intel instead. If the subject is ambiguous between a company and a topic, show the disambiguation prompt."
+description: "Moved to the research-intel skill (topic mode): use research-intel when it is installed. Deep, multi-source intelligence research on a named non-company topic: a market, industry, policy or regulation, technology, trend, community, academic field or public figure. Use this skill when the user asks for research, due diligence, a dossier, a deep dive, a brief or intelligence on a named subject, or names this skill. Do NOT use for research on a specific named company or organisation. Use company-intel instead. If the subject is ambiguous between a company and a topic, show the disambiguation prompt."
 license: MIT
 metadata:
-  version: "2.6.1"
+  version: "2.6.2"
 ---
 
 # Topic Intelligence Research
+
+**Moved.** This skill is now the topic mode of `research-intel`. When `research-intel` is installed, use it instead. If not, tell the user once that this skill gets no more updates, then continue.
 
 ## Overview
 
